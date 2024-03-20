@@ -7,7 +7,7 @@ import {SignInScreen} from './screens/SignInScreen/SignInScreen';
 export function App() {
   return (
     <ThemeProvider theme={theme}>
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1}}>
         <SignInScreen />
       </SafeAreaView>
     </ThemeProvider>

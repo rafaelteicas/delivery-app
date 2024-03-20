@@ -1,6 +1,14 @@
 import React from 'react';
-import {Box} from '..';
+import {Box, BoxProps} from '..';
 
-export function Screen({children}: React.PropsWithChildren) {
-  return <Box>{children}</Box>;
+interface ScreenProps extends BoxProps {
+  children: React.ReactNode;
+}
+
+export function Screen({children, ...boxProps}: ScreenProps) {
+  return (
+    <Box paddingHorizontal="s16" {...boxProps}>
+      {children}
+    </Box>
+  );
 }

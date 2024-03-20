@@ -6,6 +6,7 @@ import {
   createBox,
   createRestyleComponent,
   layout,
+  shadow,
   spacing,
   spacingShorthand,
 } from '@shopify/restyle';
@@ -23,6 +24,6 @@ export const TouchableOpacityBox = createRestyleComponent<
   TouchableOpacityBoxProps,
   Theme
 >(
-  [backgroundColor, spacing, spacingShorthand, border, layout],
+  [backgroundColor, spacing, spacingShorthand, border, layout, shadow],
   TouchableOpacity,
 );

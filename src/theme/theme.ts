@@ -6,6 +6,9 @@ export const theme = createTheme({
   spacing: spaces,
   borderRadii: radii,
   textVariants: {
+    small: {
+      fontSize: spaces.s12,
+    },
     medium: {
       fontWeight: 'medium',
       fontSize: spaces.s16,
