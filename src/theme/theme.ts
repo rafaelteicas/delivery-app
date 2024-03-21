@@ -6,18 +6,34 @@ export const theme = createTheme({
   spacing: spaces,
   borderRadii: radii,
   textVariants: {
-    small: {
-      fontSize: spaces.s12,
+    headingMedium: {
+      fontWeight: '700',
+      fontSize: spaces.s20,
+      color: 'heading',
     },
-    medium: {
-      fontWeight: 'medium',
+    headingSmall: {
+      fontWeight: '700',
+      fontSize: 14,
+      color: 'heading',
+    },
+    textMedium: {
+      fontWeight: '600',
       fontSize: spaces.s16,
+      color: 'heading',
+    },
+    textSmall: {
+      fontSize: spaces.s12,
+      color: 'paragraph',
+      fontWeight: '400',
     },
     defaults: {
-      fontWeight: 'normal',
-      fontSize: spaces.s16,
+      fontWeight: '500',
+      fontSize: 14,
+      color: 'text',
     },
   },
 });
 
 export type Theme = typeof theme;
+export type ThemeColors = keyof Theme['colors'];
+export type ThemeSpacing = keyof Theme['spacing'];

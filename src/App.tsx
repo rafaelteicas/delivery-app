@@ -1,15 +1,18 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
 import {ThemeProvider} from '@shopify/restyle';
 import {theme} from './theme/theme';
-import {SignInScreen} from './screens/SignInScreen/SignInScreen';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Router} from './routes';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <SafeAreaView style={{flex: 1}}>
-        <SignInScreen />
-      </SafeAreaView>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <ThemeProvider theme={theme}>
+        <SafeAreaProvider>
+          <Router />
+        </SafeAreaProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

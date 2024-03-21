@@ -6,16 +6,18 @@ interface InputProps extends TextInputProps {
   placeholder: string;
   LeftComponent?: React.ReactNode;
   RightComponent?: React.ReactNode;
+  boxProps?: BoxProps;
 }
 
 export function Input({
   placeholder,
   LeftComponent,
   RightComponent,
+  boxProps,
   ...textInputProps
 }: InputProps) {
   return (
-    <Box {...$inputBoxStyles}>
+    <Box {...boxProps} {...$inputBoxStyles}>
       {LeftComponent && (
         <Box pr="s8" alignItems="center">
           <Box
@@ -54,11 +56,11 @@ const $inputBoxStyles: BoxProps = {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  paddingHorizontal: 's16',
   borderColor: 'gray100',
   padding: 's12',
   borderWidth: 1,
-  borderRadius: 's99',
+  borderRadius: 's8',
+  backgroundColor: 'white',
 };
 
 const styles = StyleSheet.create({
