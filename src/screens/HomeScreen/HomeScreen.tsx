@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, Card, Icon, Input, Screen, Text} from '../../components';
 import {HomeCarousel} from './components/HomeCarousel';
 import {SCREEN_WIDTH} from '../../utils';
-import {AppHeader} from '../../components/AppHeader/AppHeader';
+import {HomeHeader} from './components/HomeHeader';
 import {HomeCategoryList} from './components/HomeCategoryList';
 
 const CARD_HEIGHT = 180;
@@ -10,7 +10,7 @@ const CARD_HEIGHT = 180;
 export function HomeScreen() {
   return (
     <Screen noPaddingHorizontal paddingLeft="s16" gap="s12">
-      <AppHeader />
+      <HomeHeader />
       <Input
         boxProps={{marginRight: 's16'}}
         placeholder="Procure por pratos"

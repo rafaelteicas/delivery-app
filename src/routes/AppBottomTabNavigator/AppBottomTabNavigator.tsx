@@ -6,6 +6,8 @@ import React from 'react';
 import {HomeScreen} from '../../screens/HomeScreen/HomeScreen';
 import {CustomBottomTab} from './components/CustomBottomTab';
 import {OrdersScreen} from '../../screens/OrdersScreen/OrdersScreen';
+import FavoritesScreen from '../../screens/FavoritesScreen/FavoritesScreen';
+import {CartScreen} from '../../screens/CartScreen/CartScreen';
 
 export type AppTabBarProps = {
   HomeScreen: undefined;
@@ -28,8 +30,8 @@ export function AppBottomTabNavigator() {
       tabBar={renderTabBar}>
       <BottomTab.Screen name="HomeScreen" component={HomeScreen} />
       <BottomTab.Screen name="OrdersScreen" component={OrdersScreen} />
-      <BottomTab.Screen name="FavoritesScreen" component={HomeScreen} />
-      <BottomTab.Screen name="CartScreen" component={HomeScreen} />
+      <BottomTab.Screen name="FavoritesScreen" component={FavoritesScreen} />
+      <BottomTab.Screen name="CartScreen" component={CartScreen} />
       <BottomTab.Screen name="ProfileScreen" component={HomeScreen} />
     </BottomTab.Navigator>
   );

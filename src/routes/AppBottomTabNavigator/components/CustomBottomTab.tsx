@@ -72,8 +72,9 @@ export function CustomBottomTab({
                   height={10}
                   backgroundColor="orange500"
                   position="absolute"
-                  borderRadius="s99"
-                  top={-20}
+                  borderBottomLeftRadius="s99"
+                  borderBottomRightRadius="s99"
+                  top={-16}
                 />
               )}
               <Icon

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Box, BoxProps, Icon, Text} from '..';
+import {Box, BoxProps, Icon, Text} from '../../../components';
 
-export function AppHeader() {
+export function HomeHeader() {
   return (
     <Box {...$boxStyles}>
       <Box gap="s4">
