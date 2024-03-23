@@ -7,3 +7,4 @@ export * from './ListIcon';
 export * from './HeartIcon';
 export * from './CartIcon';
 export * from './UserIcon';
+export * from './ArrowLeftIcon';

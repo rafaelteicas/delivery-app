@@ -11,7 +11,12 @@ import {
   spacingShorthand,
 } from '@shopify/restyle';
 import {Theme} from '../../theme/theme';
-import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
+import {
+  Pressable,
+  PressableProps,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native';
 
 export const Box = createBox<Theme>();
 export type BoxProps = React.ComponentProps<typeof Box>;
@@ -19,6 +24,7 @@ export type BoxProps = React.ComponentProps<typeof Box>;
 type RestyleTypes = AllProps<Theme>;
 
 export type TouchableOpacityBoxProps = RestyleTypes & TouchableOpacityProps;
+export type PressableBoxProps = RestyleTypes & PressableProps;
 
 export const TouchableOpacityBox = createRestyleComponent<
   TouchableOpacityBoxProps,
@@ -26,4 +32,9 @@ export const TouchableOpacityBox = createRestyleComponent<
 >(
   [backgroundColor, spacing, spacingShorthand, border, layout, shadow],
   TouchableOpacity,
+);
+
+export const PressableBox = createRestyleComponent<PressableBoxProps, Theme>(
+  [backgroundColor, spacing, spacingShorthand, border, layout, shadow],
+  Pressable,
 );

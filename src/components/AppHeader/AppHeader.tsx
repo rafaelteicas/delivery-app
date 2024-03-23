@@ -1,13 +1,9 @@
 import React from 'react';
-import {Box, Icon, Text} from '..';
+import {Box, BoxProps, Icon, Text} from '..';
 
 export function AppHeader() {
   return (
-    <Box
-      flexDirection="row"
-      paddingRight="s16"
-      justifyContent="space-between"
-      alignItems="center">
+    <Box {...$boxStyles}>
       <Box gap="s4">
         <Text variant="textSmall">Localização</Text>
         <Box flexDirection="row" alignItems="center" gap="s4">
@@ -24,3 +20,10 @@ export function AppHeader() {
     </Box>
   );
 }
+
+const $boxStyles: BoxProps = {
+  flexDirection: 'row',
+  paddingRight: 's16',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+};

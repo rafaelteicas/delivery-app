@@ -9,6 +9,9 @@ const colors = {
   gray100: '#DFE2E5',
   gray200: '#A3A3A3',
   gray500: '#262626',
+
+  green500: '#50a482',
+  red500: '#f40034',
 };
 
 export const themeColors = {
@@ -21,6 +24,9 @@ export const themeColors = {
   heading: colors.gray500,
 
   text: colors.black,
+
+  error: colors.red500,
+  success: colors.green500,
 
   ...colors,
 };

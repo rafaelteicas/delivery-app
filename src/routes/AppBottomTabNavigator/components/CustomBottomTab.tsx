@@ -14,7 +14,7 @@ export function CustomBottomTab({
 
   return (
     <Box
-      shadowColor="gray200"
+      shadowColor="gray100"
       shadowOffset={{
         width: 0,
         height: 1,
@@ -23,7 +23,7 @@ export function CustomBottomTab({
       shadowRadius={3.0}
       padding="s16"
       elevation={5}
-      backgroundColor="gray50"
+      backgroundColor="white"
       flexDirection="row"
       position="relative"
       style={{paddingBottom: bottom}}>
@@ -64,8 +64,7 @@ export function CustomBottomTab({
             onLongPress={onLongPress}
             justifyContent="space-between"
             flex={1}
-            gap="s4"
-            backgroundColor="white">
+            gap="s4">
             <Box justifyContent="center" alignItems="center">
               {isFocused && (
                 <Box

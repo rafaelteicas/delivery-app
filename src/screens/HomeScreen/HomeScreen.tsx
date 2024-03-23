@@ -9,11 +9,8 @@ const CARD_HEIGHT = 180;
 
 export function HomeScreen() {
   return (
-    <Screen
-      enablePaddingHorizontal={false}
-      paddingLeft="s16"
-      gap="s12"
-      HeaderComponent={<AppHeader />}>
+    <Screen noPaddingHorizontal paddingLeft="s16" gap="s12">
+      <AppHeader />
       <Input
         boxProps={{marginRight: 's16'}}
         placeholder="Procure por pratos"

@@ -5,7 +5,7 @@ import {IconBaseProps} from '../../components';
 export function HeartIcon({color, size}: IconBaseProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Rect width="24" height="24" fill="white" />
+      <Rect width="24" height="24" fill="none" />
       <Path
         fill-rule="evenodd"
         clip-rule="evenodd"

@@ -17,17 +17,10 @@ export function Input({
   ...textInputProps
 }: InputProps) {
   return (
-    <Box {...boxProps} {...$inputBoxStyles}>
+    <Box {...boxProps} {...$inputBox}>
       {LeftComponent && (
         <Box pr="s8" alignItems="center">
-          <Box
-            borderRightWidth={2}
-            pr="s8"
-            flex={1}
-            justifyContent="center"
-            borderColor="gray100">
-            {LeftComponent}
-          </Box>
+          <Box {...$leftComponentBox}>{LeftComponent}</Box>
         </Box>
       )}
       <TextInput
@@ -38,21 +31,14 @@ export function Input({
 
       {RightComponent && (
         <Box pl="s8" alignItems="center">
-          <Box
-            borderLeftWidth={2}
-            pl="s8"
-            flex={1}
-            justifyContent="center"
-            borderColor="gray100">
-            {RightComponent}
-          </Box>
+          <Box {...$rightComponent}>{RightComponent}</Box>
         </Box>
       )}
     </Box>
   );
 }
 
-const $inputBoxStyles: BoxProps = {
+const $inputBox: BoxProps = {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
@@ -61,6 +47,22 @@ const $inputBoxStyles: BoxProps = {
   borderWidth: 1,
   borderRadius: 's8',
   backgroundColor: 'white',
+};
+
+const $rightComponent: BoxProps = {
+  borderLeftWidth: 2,
+  pl: 's8',
+  flex: 1,
+  justifyContent: 'center',
+  borderColor: 'gray100',
+};
+
+const $leftComponentBox: BoxProps = {
+  borderRightWidth: 2,
+  pr: 's8',
+  flex: 1,
+  justifyContent: 'center',
+  borderColor: 'gray100',
 };
 
 const styles = StyleSheet.create({

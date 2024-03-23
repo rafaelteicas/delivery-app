@@ -10,28 +10,28 @@ interface ButtonProps extends TouchableOpacityBoxProps {
   title: string;
   type?: 'primary' | 'ghost';
   LeftItem?: React.ReactNode;
+  size?: 'normal' | 'small';
 }
 
 export function Button({
   title,
   type = 'primary',
   LeftItem,
+  size = 'normal',
   ...buttonProps
 }: ButtonProps) {
   const buttonStyle = getButtonPreset(type);
   return (
     <TouchableOpacityBox
-      alignItems="center"
-      padding="s12"
-      borderRadius="s8"
-      flexDirection="row"
-      gap="s16"
-      paddingHorizontal="s16"
+      padding={size === 'normal' ? 's12' : 's8'}
       justifyContent={LeftItem ? undefined : 'center'}
+      {...$defaultButtonStyle}
       {...buttonStyle}
       {...buttonProps}>
       {LeftItem && LeftItem}
-      <Text color={type === 'primary' ? 'white' : 'black'} variant="medium">
+      <Text
+        color={type === 'primary' ? 'white' : 'black'}
+        variant={size === 'normal' ? 'textMedium' : 'textSmall'}>
         {title}
       </Text>
     </TouchableOpacityBox>
@@ -60,3 +60,11 @@ function getButtonPreset(type: string): BoxProps {
       };
   }
 }
+
+const $defaultButtonStyle: BoxProps = {
+  alignItems: 'center',
+  borderRadius: 's8',
+  flexDirection: 'row',
+  gap: 's16',
+  paddingHorizontal: 's16',
+};

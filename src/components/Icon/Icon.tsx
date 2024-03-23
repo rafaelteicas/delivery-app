@@ -9,10 +9,11 @@ import {
   ListIcon,
   CartIcon,
   UserIcon,
+  ArrowLeftIcon,
 } from '../../assets';
 import {useAppTheme} from '../../hooks';
 import {ThemeColors, ThemeSpacing} from '../../theme';
-import {Box} from '..';
+import {PressableBox} from '..';
 
 export type IconNames = keyof typeof iconRegistry;
 
@@ -20,6 +21,7 @@ interface IconProps {
   icon: IconNames;
   size?: ThemeSpacing;
   color?: ThemeColors;
+  onPress?: () => void;
 }
 
 export interface IconBaseProps {
@@ -27,15 +29,15 @@ export interface IconBaseProps {
   color?: string;
 }
 
-export function Icon({icon, size, color}: IconProps) {
+export function Icon({icon, size, color, onPress}: IconProps) {
   const theme = useAppTheme();
   const SVGIcon = iconRegistry[icon];
   const baseColor: string = theme.colors[color!];
   const baseSize = theme.spacing[size!];
   return (
-    <Box height={baseSize}>
+    <PressableBox height={baseSize} onPress={onPress} disabled={!onPress}>
       <SVGIcon color={baseColor} size={baseSize || 20} />
-    </Box>
+    </PressableBox>
   );
 }
 
@@ -49,4 +51,5 @@ const iconRegistry = {
   heart: HeartIcon,
   cart: CartIcon,
   user: UserIcon,
+  arrowLeft: ArrowLeftIcon,
 };
