@@ -1,13 +1,13 @@
 import React from 'react';
-import {Box, BoxProps, Icon, Text} from '..';
+import {Box, BoxProps, Icon, Text} from '../..';
 import {useNavigation} from '@react-navigation/native';
-import {useAppSafeArea} from '../../hooks';
+import {useAppSafeArea} from '../../../hooks';
 
 interface Props {
   title: string;
 }
 
-export function Header({title}: Props) {
+export function ScreenHeader({title}: Props) {
   const {top} = useAppSafeArea();
   const {goBack} = useNavigation();
 

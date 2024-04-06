@@ -1,17 +1,16 @@
 import React from 'react';
-import {Box, Button, Screen, Text} from '../../components';
+
+import {FlatList} from 'react-native-gesture-handler';
+
+import {Box, Button, Screen, Text} from '@components';
+
 import {CartCard} from './components/CartCard';
 
 export function CartScreen() {
   return (
     <Screen title="Carrinho" canGoBack noPaddingHorizontal>
       <Box flex={1} pt="s16" g="s16" paddingHorizontal="s16">
-        <CartCard />
-        <CartCard />
-        <CartCard />
-        <CartCard />
-        <CartCard />
-        <CartCard />
+        <FlatList data={Array.from(Array(4))} renderItem={() => <CartCard />} />
       </Box>
       <Box
         backgroundColor="white"

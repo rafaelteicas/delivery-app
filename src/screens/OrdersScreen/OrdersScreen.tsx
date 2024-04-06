@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
-import {Screen, Text} from '../../components';
+
 import {TabView, TabBar, SceneMap} from 'react-native-tab-view';
-import {DeliveredOrders} from './scenes/DeliveredOrders';
+
+import {Screen, Text} from '@components';
+
 import {useAppTheme} from '../../hooks';
+import {theme} from '../../theme';
+
 import {ActiveOrders} from './scenes/ActiveOrders';
 import {CancelledOrders} from './scenes/CancelledOrders';
-import {theme} from '../../theme';
+import {DeliveredOrders} from './scenes/DeliveredOrders';
 
 const renderScene = SceneMap({
   deliveredOrders: DeliveredOrders,

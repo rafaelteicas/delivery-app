@@ -1,6 +1,7 @@
 import React from 'react';
-import {Box, Button, Screen, Text} from '../../components';
 import {Image, StyleSheet} from 'react-native';
+
+import {Box, Button, Screen, Text} from '@components';
 
 export default function FavoritesScreen() {
   return (

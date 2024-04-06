@@ -15,7 +15,7 @@ const colors = {
 };
 
 export const themeColors = {
-  mainBackground: colors.white,
+  mainBackground: colors.gray50,
   onBackground: colors.black,
 
   primary: colors.orange500,

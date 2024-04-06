@@ -1,6 +1,7 @@
 import React from 'react';
-import {Box, Button, Text} from '../../../components';
 import {Image} from 'react-native';
+
+import {Box, Button, Text} from '@components';
 
 export function CartCard() {
   return (

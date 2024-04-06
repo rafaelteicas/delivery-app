@@ -1,13 +1,28 @@
 import React from 'react';
-import {Box, Card, Icon, Input, Screen, Text} from '../../components';
-import {HomeCarousel} from './components/HomeCarousel';
+import {FlatList} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
+
+import {Box, Card, Icon, Input, Screen, Text} from '@components';
+
+import {mockedItems} from '../../data/mockedItemData';
 import {SCREEN_WIDTH} from '../../utils';
-import {HomeHeader} from './components/HomeHeader';
+
+import {HomeCarousel} from './components/HomeCarousel';
 import {HomeCategoryList} from './components/HomeCategoryList';
+import {HomeHeader} from './components/HomeHeader';
 
 const CARD_HEIGHT = 180;
 
 export function HomeScreen() {
+  const data = mockedItems;
+
+  const {navigate} = useNavigation();
+
+  function navigateToSearchScreen() {
+    navigate('SearchScreen');
+  }
+
   return (
     <Screen noPaddingHorizontal paddingLeft="s16" gap="s12">
       <HomeHeader />
@@ -15,6 +30,7 @@ export function HomeScreen() {
         boxProps={{marginRight: 's16'}}
         placeholder="Procure por pratos"
         RightComponent={<Icon icon="search" color="primary" size="s20" />}
+        onPressIn={navigateToSearchScreen}
       />
       <Box height={CARD_HEIGHT + 40}>
         <Text variant="headingMedium" mb="s12">
@@ -55,8 +71,12 @@ export function HomeScreen() {
           </Text>
         </Box>
         <Box flexDirection="row" gap="s8">
-          <Card />
-          <Card />
+          <FlatList
+            horizontal
+            data={data}
+            showsHorizontalScrollIndicator={false}
+            renderItem={item => <Card {...item} />}
+          />
         </Box>
       </Box>
     </Screen>
