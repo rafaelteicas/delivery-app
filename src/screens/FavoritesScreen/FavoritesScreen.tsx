@@ -1,11 +1,18 @@
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
+import {Image, ListRenderItemInfo, StyleSheet} from 'react-native';
+
+import {ItemProps} from '@data';
+import {useFavorites, useFavoritesService} from '@services';
+import {FlatList} from 'react-native-gesture-handler';
 
 import {Box, Button, Screen, Text} from '@components';
 
 export default function FavoritesScreen() {
-  return (
-    <Screen title="Favoritos" canGoBack noPaddingHorizontal>
+  const favorites = useFavorites();
+  const {removeFavorite} = useFavoritesService();
+
+  function renderItem({item}: ListRenderItemInfo<ItemProps>) {
+    return (
       <Box
         mt="s16"
         flexDirection="row"
@@ -13,24 +20,38 @@ export default function FavoritesScreen() {
         paddingHorizontal="s16">
         <Box gap="s8">
           <Text variant="textMedium" fontWeight="bold" mt="s8">
-            Hamburguer
+            {item.name}
           </Text>
           <Text variant="textSmall" color="gray500">
-            R$ 18.99
+            {item.price}
           </Text>
-          <Text variant="textSmall" fontWeight="bold" color="success">
-            Frete Grátis
-          </Text>
+          {item.deliveryFee === 0 && (
+            <Text variant="textSmall" fontWeight="bold" color="success">
+              Frete Grátis
+            </Text>
+          )}
           <Box justifyContent="space-between" g="s12" mt="s12">
             <Button title="Adicionar ao carrinho" size="small" />
-            <Button type="ghost" title="Remover dos favoritos" size="small" />
+            <Button
+              type="ghost"
+              title="Remover dos favoritos"
+              size="small"
+              onPress={() => removeFavorite(item.id)}
+            />
           </Box>
         </Box>
-        <Image
-          source={require('../../assets/images/foods/hamburger.webp')}
-          style={[styles.image]}
-        />
+        <Image source={item.image} style={[styles.image]} />
       </Box>
+    );
+  }
+
+  return (
+    <Screen title="Favoritos" canGoBack noPaddingHorizontal>
+      <FlatList
+        data={favorites}
+        keyExtractor={data => data.id.toString()}
+        renderItem={renderItem}
+      />
     </Screen>
   );
 }

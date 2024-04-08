@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {Box, Button, Text} from '../../../components';
 
 export function ProductScreenFooter() {
@@ -15,6 +16,7 @@ export function ProductScreenFooter() {
         borderWidth={1}
         borderRadius="s16"
         flexDirection="row"
+        backgroundColor="white"
         gap="s16">
         <Text>-</Text>
         <Text>1</Text>

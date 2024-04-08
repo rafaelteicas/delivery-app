@@ -1,8 +1,10 @@
 import React from 'react';
+
 import {Box, BoxProps} from '..';
 import {useAppSafeArea, useAppTheme} from '../../hooks';
-import {ScreenHeader} from './components/ScreenHeader';
+
 import {ScrollViewContainer, ViewContainer} from './components/ScreenContainer';
+import {ScreenHeader} from './components/ScreenHeader';
 
 interface ScreenProps extends BoxProps {
   children: React.ReactNode;

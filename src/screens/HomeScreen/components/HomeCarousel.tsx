@@ -1,7 +1,9 @@
 import React from 'react';
-import Carousel from 'react-native-reanimated-carousel';
-import {Box} from '../../../components';
 import {Image} from 'react-native';
+
+import Carousel from 'react-native-reanimated-carousel';
+
+import {Box} from '../../../components';
 
 interface Props {
   width: number;

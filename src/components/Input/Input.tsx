@@ -1,6 +1,7 @@
-import React from 'react';
-import {Box, BoxProps} from '..';
+import React, {forwardRef} from 'react';
 import {StyleSheet, TextInput, TextInputProps} from 'react-native';
+
+import {Box, BoxProps} from '..';
 
 interface InputProps extends TextInputProps {
   placeholder: string;
@@ -9,34 +10,34 @@ interface InputProps extends TextInputProps {
   boxProps?: BoxProps;
 }
 
-export function Input({
-  placeholder,
-  LeftComponent,
-  RightComponent,
-  boxProps,
-  ...textInputProps
-}: InputProps) {
-  return (
-    <Box {...boxProps} {...$inputBox}>
-      {LeftComponent && (
-        <Box pr="s8" alignItems="center">
-          <Box {...$leftComponentBox}>{LeftComponent}</Box>
-        </Box>
-      )}
-      <TextInput
-        placeholder={placeholder}
-        style={styles.input}
-        {...textInputProps}
-      />
+export const Input = forwardRef<TextInput, InputProps>(
+  (
+    {placeholder, LeftComponent, RightComponent, boxProps, ...textInputProps},
+    ref,
+  ) => {
+    return (
+      <Box {...boxProps} {...$inputBox}>
+        {LeftComponent && (
+          <Box pr="s8" alignItems="center">
+            <Box {...$leftComponentBox}>{LeftComponent}</Box>
+          </Box>
+        )}
+        <TextInput
+          ref={ref}
+          placeholder={placeholder}
+          style={styles.input}
+          {...textInputProps}
+        />
 
-      {RightComponent && (
-        <Box pl="s8" alignItems="center">
-          <Box {...$rightComponent}>{RightComponent}</Box>
-        </Box>
-      )}
-    </Box>
-  );
-}
+        {RightComponent && (
+          <Box pl="s8" alignItems="center">
+            <Box {...$rightComponent}>{RightComponent}</Box>
+          </Box>
+        )}
+      </Box>
+    );
+  },
+);
 
 const $inputBox: BoxProps = {
   flexDirection: 'row',

@@ -1,4 +1,6 @@
 import React from 'react';
+
+import {PressableBox} from '..';
 import {
   GoogleIcon,
   HomeIcon,
@@ -13,7 +15,6 @@ import {
 } from '../../assets';
 import {useAppTheme} from '../../hooks';
 import {ThemeColors, ThemeSpacing} from '../../theme';
-import {PressableBox} from '..';
 
 export type IconNames = keyof typeof iconRegistry;
 
@@ -34,6 +35,7 @@ export function Icon({icon, size, color, onPress}: IconProps) {
   const SVGIcon = iconRegistry[icon];
   const baseColor: string = theme.colors[color!];
   const baseSize = theme.spacing[size!];
+
   return (
     <PressableBox height={baseSize} onPress={onPress} disabled={!onPress}>
       <SVGIcon color={baseColor} size={baseSize || 20} />

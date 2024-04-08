@@ -1,15 +1,23 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {AppBottomTabNavigator} from '../AppBottomTabNavigator/AppBottomTabNavigator';
-import {RestaurantScreen} from '../../screens/RestaurantScreen/RestaurantScreen';
+
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
 import {ProductScreen} from '../../screens/ProductScreen/ProductScreen';
+import {RestaurantScreen} from '../../screens/RestaurantScreen/RestaurantScreen';
 import {SearchScreen} from '../../screens/SearchScreen/SearchScreen';
+import {AppBottomTabNavigator} from '../AppBottomTabNavigator/AppBottomTabNavigator';
 
 export type AppStackNavigatorType = {
   AppBottomTabNavigator: undefined;
   RestaurantScreen: undefined;
-  ProductScreen: undefined;
-  SearchScreen: undefined;
+  ProductScreen: {
+    productId: string;
+  };
+  SearchScreen:
+    | {
+        category?: string;
+      }
+    | undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackNavigatorType>();

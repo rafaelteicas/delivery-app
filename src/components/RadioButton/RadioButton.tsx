@@ -1,20 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
+
 import {Box, PressableBox} from '..';
 
 interface RadioButtonProps {
-  index: number;
+  selectedValue: boolean;
+  onPress: () => void;
 }
 
-export function RadioButton({index}: RadioButtonProps) {
-  const [selectedValue, setSelectedValue] = useState<number | null>(null);
-
-  function handleSelectedValue() {
-    setSelectedValue(index);
-  }
-
+export function RadioButton({selectedValue, onPress}: RadioButtonProps) {
   return (
     <PressableBox
-      onPress={handleSelectedValue}
+      onPress={onPress}
       width={20}
       height={20}
       borderColor="gray100"
@@ -22,7 +18,7 @@ export function RadioButton({index}: RadioButtonProps) {
       borderRadius="s99"
       alignItems="center"
       justifyContent="center">
-      {selectedValue === index && (
+      {selectedValue && (
         <Box
           width={10}
           height={10}

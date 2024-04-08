@@ -5,6 +5,11 @@
     "paths": {
       "@components": ["src/components"],
       "@screens": ["src/screens"],
+      "@data": ["src/data"],
+      "@routes": ["src/routes"],
+      "@utils": ["src/utils"],
+      "@hooks": ["src/hooks"],
+      "@services": ["src/services"],
     }
   }
 }

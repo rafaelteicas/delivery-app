@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {Box, BoxProps, Icon, Text} from '../../../components';
 
 export function HomeHeader() {

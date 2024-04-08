@@ -1,15 +1,21 @@
 import React from 'react';
-import {Box, BoxProps, Icon, PressableBox, Text} from '..';
-import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../utils';
 import {ImageBackground, ListRenderItemInfo, StyleSheet} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
+import {useFavoritesService} from '@services';
+
+import {Box, BoxProps, Icon, PressableBox, Text, TouchableOpacityBox} from '..';
 import {ItemProps} from '../../data/mockedItemData';
+import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../utils';
 
 export function Card({item}: ListRenderItemInfo<ItemProps>) {
-  const {navigate} = useNavigation();
+  const {addFavorite} = useFavoritesService();
 
+  const {navigate} = useNavigation();
   function navigateToProduct() {
-    navigate('ProductScreen');
+    navigate('ProductScreen', {
+      productId: item.id.toString(),
+    });
   }
   return (
     <Box {...$cardBox}>
@@ -19,6 +25,12 @@ export function Card({item}: ListRenderItemInfo<ItemProps>) {
           borderTopRightRadius={12}
           source={item.image}
           style={styles.imageBackground}>
+          <TouchableOpacityBox
+            style={styles.favoriteBox}
+            onPress={() => addFavorite(item)}>
+            <Icon icon="heart" color="error" />
+          </TouchableOpacityBox>
+
           <Box {...$badgeBox}>
             <Icon icon="star" color="orange600" size="s16" />
             <Text variant="textSmall" fontWeight="600" color="gray500">
@@ -41,13 +53,12 @@ export function Card({item}: ListRenderItemInfo<ItemProps>) {
 }
 
 const $cardBox: BoxProps = {
-  width: SCREEN_WIDTH / 2,
+  width: SCREEN_WIDTH * 0.4,
   borderColor: 'gray100',
   borderWidth: 1,
   borderRadius: 's12',
   gap: 's8',
   pb: 's8',
-  mr: 's16',
 };
 
 const $badgeBox: BoxProps = {
@@ -62,8 +73,13 @@ const $badgeBox: BoxProps = {
 
 const styles = StyleSheet.create({
   imageBackground: {
-    height: SCREEN_HEIGHT / 5,
+    height: SCREEN_HEIGHT / 6,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+  },
+  favoriteBox: {
+    position: 'absolute',
+    left: 12,
+    top: 12,
   },
 });

@@ -1,5 +1,7 @@
 import React from 'react';
+
 import {Path, Svg} from 'react-native-svg';
+
 import {IconBaseProps} from '../../components';
 
 export function ArrowLeftIcon({color, size}: IconBaseProps) {

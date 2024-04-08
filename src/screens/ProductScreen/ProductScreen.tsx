@@ -1,40 +1,32 @@
 import React from 'react';
 import {ImageBackground} from 'react-native';
 
+import {mockedItems} from '@data';
 import {useNavigation} from '@react-navigation/native';
+import {SCREEN_HEIGHT} from '@utils';
 
 import {Box, Icon, PressableBox, Screen} from '@components';
-
-import {useAppSafeArea} from '../../hooks';
-import {SCREEN_HEIGHT} from '../../utils';
+import {useAppSafeArea} from '@hooks';
+import {AppStackProps} from '@routes';
 
 import {ProductScreenFooter} from './components/ProductScreenFooter';
 import {ProductScreenHeader} from './components/ProductScreenHeader';
-import {
-  OptionsProps,
-  ProductScreenOptions,
-} from './components/ProductScreenOptions';
+import {ProductScreenOptions} from './components/ProductScreenOptions';
 
-const productOptions: OptionsProps[] = [
-  {title: 'Bacon', value: 10},
-  {title: 'Chedar', value: 10},
-  {title: 'Alface', value: 10},
-  {title: 'Picles', value: 10},
-  {title: 'Tomate', value: 10},
-  {title: 'Salada', value: 10},
-  {title: 'Batata frita', value: 10},
-];
-
-export function ProductScreen() {
+export function ProductScreen({route}: AppStackProps<'ProductScreen'>) {
   const {bottom, top} = useAppSafeArea();
   const {goBack} = useNavigation();
+
+  const data = mockedItems.filter(
+    item => item.id.toString() === route.params.productId.toString(),
+  )[0];
 
   return (
     <>
       <Screen scrollable noPaddingHorizontal noPaddingTop canGoBack>
         <ImageBackground
-          source={require('../../assets/images/foods/hamburger.webp')}
-          alt="Hambúrguer"
+          source={data.image}
+          alt={data.name}
           style={{
             position: 'relative',
             height: SCREEN_HEIGHT / 3,
@@ -53,7 +45,7 @@ export function ProductScreen() {
         </ImageBackground>
         <Box flex={1}>
           <ProductScreenHeader />
-          <ProductScreenOptions data={productOptions} />
+          <ProductScreenOptions />
         </Box>
       </Screen>
       <Box style={{paddingBottom: bottom}} paddingVertical="s16">
