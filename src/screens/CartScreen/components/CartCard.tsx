@@ -1,9 +1,13 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, ListRenderItemInfo} from 'react-native';
+
+import {CartProductProps, useCartService} from '@services';
 
 import {Box, Button, Text} from '@components';
 
-export function CartCard() {
+export function CartCard({item}: ListRenderItemInfo<CartProductProps>) {
+  const {removeItem, incrementCartItem, decrementCartItem} = useCartService();
+
   return (
     <Box
       elevation={5}
@@ -20,8 +24,13 @@ export function CartCard() {
       flexDirection="row"
       borderRadius="s12">
       <Box justifyContent="space-between">
-        <Text variant="headingSmall">Hambúrguer</Text>
-        <Text fontWeight="500">R$ 17.99</Text>
+        <Text variant="headingSmall">{item.product.name}</Text>
+        <Text fontWeight="500">
+          {item.product.price.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </Text>
         <Box flexDirection="row">
           <Box
             mr="s16"
@@ -31,15 +40,20 @@ export function CartCard() {
             borderRadius="s8"
             flexDirection="row"
             gap="s16">
-            <Text>-</Text>
-            <Text>1</Text>
-            <Text>+</Text>
+            <Text onPress={() => decrementCartItem(item.product.id)}>-</Text>
+            <Text>{item.quantity}</Text>
+            <Text onPress={() => incrementCartItem(item.product.id)}>+</Text>
           </Box>
-          <Button size="small" type="ghost" title="Remover" />
+          <Button
+            size="small"
+            type="ghost"
+            title="Remover"
+            onPress={() => removeItem(item.product.id)}
+          />
         </Box>
       </Box>
       <Image
-        source={require('../../../assets/images/foods/hamburger.webp')}
+        source={item.product.image}
         style={{
           width: 100,
           height: 100,

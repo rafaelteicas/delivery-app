@@ -2,7 +2,11 @@ import React from 'react';
 
 import {Box, Button, Text} from '../../../components';
 
-export function ProductScreenFooter() {
+interface ProductScreenFooterProps {
+  addToCart: () => void;
+}
+
+export function ProductScreenFooter({addToCart}: ProductScreenFooterProps) {
   return (
     <Box
       paddingHorizontal="s16"
@@ -22,7 +26,7 @@ export function ProductScreenFooter() {
         <Text>1</Text>
         <Text>+</Text>
       </Box>
-      <Button title="Adicionar" flex={1} />
+      <Button title="Adicionar" flex={1} onPress={addToCart} />
     </Box>
   );
 }

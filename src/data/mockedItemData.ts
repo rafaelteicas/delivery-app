@@ -59,7 +59,7 @@ export const mockedCategories: CategoryProps[] = [
     background: require('../assets/images/foods/hamburger.webp'),
   },
   {
-    name: 'Pizzas',
+    name: 'Pizza',
     background: require('../assets/images/foods/pizza.jpeg'),
   },
 ];

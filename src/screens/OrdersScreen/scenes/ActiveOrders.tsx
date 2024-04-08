@@ -1,6 +1,7 @@
 import React from 'react';
-import {Box, Separator} from '../../../components';
 import {FlatList} from 'react-native';
+
+import {Box, Separator} from '../../../components';
 import {OrderCard} from '../components/OrderCard';
 
 export function ActiveOrders() {

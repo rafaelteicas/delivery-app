@@ -1,15 +1,18 @@
+import React from 'react';
+
 import {
   BottomTabBarProps,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import React from 'react';
-import {HomeScreen} from '../../screens/HomeScreen/HomeScreen';
-import {CustomBottomTab} from './components/CustomBottomTab';
-import {OrdersScreen} from '../../screens/OrdersScreen/OrdersScreen';
-import FavoritesScreen from '../../screens/FavoritesScreen/FavoritesScreen';
-import {CartScreen} from '../../screens/CartScreen/CartScreen';
 
-export type AppTabBarProps = {
+import {CartScreen} from '../../screens/CartScreen/CartScreen';
+import FavoritesScreen from '../../screens/FavoritesScreen/FavoritesScreen';
+import {HomeScreen} from '../../screens/HomeScreen/HomeScreen';
+import {OrdersScreen} from '../../screens/OrdersScreen/OrdersScreen';
+
+import {CustomBottomTab} from './components/CustomBottomTab';
+
+export type AppBottomNavigatorType = {
   HomeScreen: undefined;
   OrdersScreen: undefined;
   FavoritesScreen: undefined;
@@ -17,7 +20,7 @@ export type AppTabBarProps = {
   ProfileScreen: undefined;
 };
 
-const BottomTab = createBottomTabNavigator<AppTabBarProps>();
+const BottomTab = createBottomTabNavigator<AppBottomNavigatorType>();
 
 export function AppBottomTabNavigator() {
   function renderTabBar(props: BottomTabBarProps) {

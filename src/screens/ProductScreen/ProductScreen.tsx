@@ -3,6 +3,7 @@ import {ImageBackground} from 'react-native';
 
 import {mockedItems} from '@data';
 import {useNavigation} from '@react-navigation/native';
+import {useCartService} from '@services';
 import {SCREEN_HEIGHT} from '@utils';
 
 import {Box, Icon, PressableBox, Screen} from '@components';
@@ -20,6 +21,11 @@ export function ProductScreen({route}: AppStackProps<'ProductScreen'>) {
   const data = mockedItems.filter(
     item => item.id.toString() === route.params.productId.toString(),
   )[0];
+
+  const {addItem} = useCartService();
+  function handleAddToCart() {
+    addItem(data, 1);
+  }
 
   return (
     <>
@@ -49,7 +55,7 @@ export function ProductScreen({route}: AppStackProps<'ProductScreen'>) {
         </Box>
       </Screen>
       <Box style={{paddingBottom: bottom}} paddingVertical="s16">
-        <ProductScreenFooter />
+        <ProductScreenFooter addToCart={handleAddToCart} />
       </Box>
     </>
   );
