@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 
 import {useNavigation} from '@react-navigation/native';
 import {useCart} from '@services';
+import {formatPrice} from '@utils';
 import {FlatList} from 'react-native-gesture-handler';
 
 import {Box, Button, Screen, Text, TouchableOpacityBox} from '@components';
@@ -13,7 +14,7 @@ export function CartScreen() {
   const items = useCart();
 
   const totalPrice = items.reduce((prev, curr) => {
-    return prev + curr.product.price * curr.quantity;
+    return prev + curr.item.price * curr.quantity;
   }, 0);
 
   return (
@@ -37,10 +38,7 @@ export function CartScreen() {
           <Text variant="textSmall">
             Valor total:{' '}
             <Text color="orange500" fontWeight="bold">
-              {totalPrice.toLocaleString('pt-BR', {
-                style: 'currency',
-                currency: 'BRL',
-              })}
+              {formatPrice(totalPrice)}
             </Text>
           </Text>
           <Button title="Finalizar compra" />

@@ -7,4 +7,5 @@ export * from './Button/Button';
 export * from './Icon/Icon';
 export * from './Card/Card';
 export * from './Separator/Separator';
-export * from './RadioButton/RadioButton';
+export * from './RadioButton';
+export * from './CheckBox';

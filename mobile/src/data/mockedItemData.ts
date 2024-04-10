@@ -1,23 +1,13 @@
 import {ImageSourcePropType} from 'react-native';
 
-export interface ItemProps {
-  id: number;
-  name: string;
-  price: number;
-  image: any;
-  rating: number;
-  category: string;
-  deliveryFee: number;
-  timeToDeliverInSeconds?: number;
-  description?: string;
-}
+import {CartItemProps} from '@domain';
 
 export interface CategoryProps {
   name: string;
   background: ImageSourcePropType;
 }
 
-export const mockedItems: ItemProps[] = [
+export const mockedItems: CartItemProps['item'][] = [
   {
     id: 1,
     name: 'Hambúrguer',
@@ -28,6 +18,38 @@ export const mockedItems: ItemProps[] = [
     description: 'Any description',
     timeToDeliverInSeconds: 60 * 20,
     category: 'Hamburguer',
+    optionals: {
+      title: 'Opções',
+      isOptional: true,
+      data: [
+        {
+          id: 1,
+          item: 'Bacon',
+          value: 1,
+        },
+        {
+          id: 2,
+          item: 'Carne',
+          value: 1,
+        },
+      ],
+    },
+    additional: {
+      title: 'Adicionais',
+      isOptional: true,
+      data: [
+        {
+          id: 1,
+          item: 'Queijo',
+          value: 1,
+        },
+        {
+          id: 2,
+          item: 'Mussarela',
+          value: 1,
+        },
+      ],
+    },
   },
   {
     id: 2,

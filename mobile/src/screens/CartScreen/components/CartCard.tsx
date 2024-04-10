@@ -1,12 +1,16 @@
 import React from 'react';
 import {Image, ListRenderItemInfo} from 'react-native';
 
-import {CartProductProps, useCartService} from '@services';
+import {CartItemProps} from '@domain';
+import {useCartService} from '@services';
+import {formatPrice} from '@utils';
 
-import {Box, Button, Text} from '@components';
+import {Box, Button, Separator, Text} from '@components';
 
-export function CartCard({item}: ListRenderItemInfo<CartProductProps>) {
+export function CartCard({item}: ListRenderItemInfo<CartItemProps>) {
   const {removeItem, incrementCartItem, decrementCartItem} = useCartService();
+
+  const hasExtraItems = !!item.item.optionals || !!item.item.additional;
 
   return (
     <Box
@@ -19,47 +23,51 @@ export function CartCard({item}: ListRenderItemInfo<CartProductProps>) {
       shadowOpacity={0.4}
       shadowRadius={3.0}
       backgroundColor="white"
-      p="s12"
-      justifyContent="space-between"
-      flexDirection="row"
+      py="s12"
+      gap="s12"
       borderRadius="s12">
-      <Box justifyContent="space-between">
-        <Text variant="headingSmall">{item.product.name}</Text>
-        <Text fontWeight="500">
-          {item.product.price.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-          })}
-        </Text>
-        <Box flexDirection="row">
-          <Box
-            mr="s16"
-            borderColor="gray100"
-            p="s8"
-            borderWidth={1}
-            borderRadius="s8"
-            flexDirection="row"
-            gap="s16">
-            <Text onPress={() => decrementCartItem(item.product.id)}>-</Text>
-            <Text>{item.quantity}</Text>
-            <Text onPress={() => incrementCartItem(item.product.id)}>+</Text>
+      <Box px="s12" justifyContent="space-between" flexDirection="row">
+        <Box justifyContent="space-between">
+          <Text variant="headingSmall">{item.item.name}</Text>
+          <Text fontWeight="500">{formatPrice(item.item.price)}</Text>
+          <Box flexDirection="row">
+            <Box
+              mr="s16"
+              borderColor="gray100"
+              p="s8"
+              borderWidth={1}
+              borderRadius="s8"
+              flexDirection="row"
+              gap="s16">
+              <Text onPress={() => decrementCartItem(item.item.id)}>-</Text>
+              <Text>{item.quantity}</Text>
+              <Text onPress={() => incrementCartItem(item.item.id)}>+</Text>
+            </Box>
+            <Button
+              size="small"
+              type="ghost"
+              title="Remover"
+              onPress={() => removeItem(item.item.id)}
+            />
           </Box>
-          <Button
-            size="small"
-            type="ghost"
-            title="Remover"
-            onPress={() => removeItem(item.product.id)}
-          />
         </Box>
+        <Image
+          source={item.item.image}
+          style={{
+            width: 100,
+            height: 100,
+            borderRadius: 12,
+          }}
+        />
       </Box>
-      <Image
-        source={item.product.image}
-        style={{
-          width: 100,
-          height: 100,
-          borderRadius: 12,
-        }}
-      />
+      {hasExtraItems && (
+        <>
+          <Separator />
+          <Box px="s12">
+            <Text>a</Text>
+          </Box>
+        </>
+      )}
     </Box>
   );
 }

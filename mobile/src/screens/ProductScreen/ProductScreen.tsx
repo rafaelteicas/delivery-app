@@ -2,11 +2,11 @@ import React from 'react';
 import {ImageBackground} from 'react-native';
 
 import {mockedItems} from '@data';
-import {useNavigation} from '@react-navigation/native';
 import {useCartService} from '@services';
 import {SCREEN_HEIGHT} from '@utils';
+import {ScrollView} from 'react-native-gesture-handler';
 
-import {Box, Icon, PressableBox, Screen} from '@components';
+import {Box, Screen} from '@components';
 import {useAppSafeArea} from '@hooks';
 import {AppStackProps} from '@routes';
 
@@ -15,8 +15,7 @@ import {ProductScreenHeader} from './components/ProductScreenHeader';
 import {ProductScreenOptions} from './components/ProductScreenOptions';
 
 export function ProductScreen({route}: AppStackProps<'ProductScreen'>) {
-  const {bottom, top} = useAppSafeArea();
-  const {goBack} = useNavigation();
+  const {bottom} = useAppSafeArea();
 
   const data = mockedItems.filter(
     item => item.id.toString() === route.params.productId.toString(),
@@ -24,35 +23,35 @@ export function ProductScreen({route}: AppStackProps<'ProductScreen'>) {
 
   const {addItem} = useCartService();
   function handleAddToCart() {
-    addItem(data, 1);
+    addItem({item: data, quantity: 1});
   }
+
+  const hasExtraItem = !!data.additional || !!data.optionals;
 
   return (
     <>
-      <Screen scrollable noPaddingHorizontal noPaddingTop canGoBack>
-        <ImageBackground
-          source={data.image}
-          alt={data.name}
-          style={{
-            position: 'relative',
-            height: SCREEN_HEIGHT / 3,
-            aspectRatio: '16/9',
-            zIndex: -1,
-          }}>
-          <PressableBox
-            onPress={goBack}
-            position="absolute"
-            borderRadius="s99"
-            backgroundColor="mainBackground"
-            top={top}
-            left={20}>
-            <Icon icon="arrowLeft" color="onBackground" />
-          </PressableBox>
-        </ImageBackground>
-        <Box flex={1}>
-          <ProductScreenHeader />
-          <ProductScreenOptions />
-        </Box>
+      <Screen title={data.name} noPaddingHorizontal noPaddingTop canGoBack>
+        <ScrollView>
+          <ImageBackground
+            source={data.image}
+            alt={data.name}
+            style={{
+              position: 'relative',
+              height: SCREEN_HEIGHT / 3,
+              aspectRatio: '16/9',
+              zIndex: -1,
+            }}
+          />
+          <Box flex={1}>
+            <ProductScreenHeader />
+            {hasExtraItem && (
+              <ProductScreenOptions
+                additional={data.additional}
+                optionals={data.optionals}
+              />
+            )}
+          </Box>
+        </ScrollView>
       </Screen>
       <Box style={{paddingBottom: bottom}} paddingVertical="s16">
         <ProductScreenFooter addToCart={handleAddToCart} />

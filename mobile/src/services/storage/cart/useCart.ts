@@ -1,35 +1,30 @@
-import {ItemProps} from '@data';
+import {CartItemProps, ProductType} from '@domain';
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 
 import {storage} from '../storage';
 
-export interface CartProductProps {
-  product: ItemProps;
-  quantity: number;
-}
-
 interface CartState {
-  items: CartProductProps[];
-  addItem: (item: ItemProps, quantity: number) => void;
-  removeItem: (productId: ItemProps['id']) => void;
-  incrementCartItem: (productId: ItemProps['id']) => void;
-  decrementCartItem: (productId: ItemProps['id']) => void;
+  items: CartItemProps[];
+  addItem: (item: CartItemProps) => void;
+  removeItem: (productId: ProductType['id']) => void;
+  incrementCartItem: (productId: ProductType['id']) => void;
+  decrementCartItem: (productId: ProductType['id']) => void;
 }
 
 export const useCartStorage = create<CartState>()(
   persist(
     set => ({
       items: [],
-      addItem: (item, quantity) => {
+      addItem: item => {
         set(state => {
           const productInCart = state.items.find(
-            data => data.product.id === item.id,
+            data => data.item.id === item.item.id,
           );
           if (!productInCart) {
-            const product = {
-              product: item,
-              quantity,
+            const product: CartItemProps = {
+              item: item.item,
+              quantity: item.quantity,
             };
             return {
               items: [...state.items, product],
@@ -37,10 +32,10 @@ export const useCartStorage = create<CartState>()(
           }
           return {
             items: state.items.map(data => {
-              if (data.product.id === productInCart.product.id) {
+              if (data.item.id === productInCart.item.id) {
                 return {
                   ...productInCart,
-                  quantity: productInCart.quantity + quantity,
+                  quantity: productInCart.quantity + item.quantity,
                 };
               }
               return data;
@@ -50,12 +45,12 @@ export const useCartStorage = create<CartState>()(
       },
       removeItem: productId => {
         set(state => ({
-          items: state.items.filter(item => item.product.id !== productId),
+          items: state.items.filter(item => item.item.id !== productId),
         }));
       },
       incrementCartItem: productId => {
         set(state => {
-          const item = state.items.find(data => data.product.id === productId);
+          const item = state.items.find(data => data.item.id === productId);
           if (item) {
             item.quantity += 1;
             return {
@@ -67,7 +62,7 @@ export const useCartStorage = create<CartState>()(
       },
       decrementCartItem: productId => {
         set(state => {
-          const item = state.items.find(data => data.product.id === productId);
+          const item = state.items.find(data => data.item.id === productId);
           if (item && item.quantity > 1) {
             item.quantity -= 1;
             return {

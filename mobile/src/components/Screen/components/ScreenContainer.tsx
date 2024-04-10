@@ -10,6 +10,7 @@ interface Props {
 export function ScrollViewContainer({children, backgroundColor}: Props) {
   return (
     <ScrollView
+      keyboardShouldPersistTaps="handled"
       showsVerticalScrollIndicator={false}
       style={{flex: 1, backgroundColor}}>
       {children}

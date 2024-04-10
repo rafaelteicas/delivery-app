@@ -1,1 +1,2 @@
-export * from './screenDimensions/screenDimensions';
+export * from './screenDimensions';
+export * from './formatPrice';
