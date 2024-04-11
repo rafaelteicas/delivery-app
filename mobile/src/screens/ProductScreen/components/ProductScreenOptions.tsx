@@ -12,8 +12,8 @@ export interface OptionsProps {
 }
 
 interface ProductScreenOptions {
-  optionals?: ExtraItemsProps;
-  additional?: ExtraItemsProps;
+  optionals?: ExtraItemsProps[];
+  additional?: ExtraItemsProps[];
 }
 
 export function ProductScreenOptions({
@@ -50,8 +50,8 @@ export function ProductScreenOptions({
 
   return (
     <>
-      {optionals && (
-        <Box>
+      {optionals?.map(optional => (
+        <Box key={optional.title}>
           <Box
             p="s16"
             flexDirection="row"
@@ -59,15 +59,15 @@ export function ProductScreenOptions({
             alignItems="center"
             justifyContent="space-between">
             <Text variant="headingSmall" color="gray500">
-              {optionals.title}
+              {optional.title}
             </Text>
-            {!optionals.isOptional && (
+            {!optional.isOptional && (
               <Text variant="textSmall" color="gray200" fontWeight="600">
                 OBRIGATÓRIO
               </Text>
             )}
           </Box>
-          {optionals.data.map(item => (
+          {optional.data.map(item => (
             <RadioItem
               key={item.item}
               title={item.item}
@@ -77,10 +77,10 @@ export function ProductScreenOptions({
             />
           ))}
         </Box>
-      )}
+      ))}
 
-      {additional && (
-        <Box>
+      {additional?.map(additional => (
+        <Box key={additional.title}>
           <Box
             p="s16"
             flexDirection="row"
@@ -101,7 +101,7 @@ export function ProductScreenOptions({
             />
           ))}
         </Box>
-      )}
+      ))}
     </>
   );
 }

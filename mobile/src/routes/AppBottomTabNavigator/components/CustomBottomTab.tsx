@@ -1,9 +1,12 @@
-import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import React from 'react';
+
+import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
+
 import {TouchableOpacityBox, Text, Box, Icon} from '../../../components';
 import {useAppSafeArea} from '../../../hooks';
+import {AppBottomNavigatorType} from '../AppBottomTabNavigator';
+
 import {getTabBarItem} from './getTabBarItem';
-import {AppTabBarProps} from '../AppBottomTabNavigator';
 
 export function CustomBottomTab({
   state,
@@ -30,7 +33,8 @@ export function CustomBottomTab({
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
 
-        const {label, icon} = getTabBarItem[route.name as keyof AppTabBarProps];
+        const {label, icon} =
+          getTabBarItem[route.name as keyof AppBottomNavigatorType];
 
         const isFocused = state.index === index;
 
@@ -68,8 +72,8 @@ export function CustomBottomTab({
             <Box justifyContent="center" alignItems="center">
               {isFocused && (
                 <Box
-                  width={20}
-                  height={10}
+                  width="100%"
+                  height={5}
                   backgroundColor="orange500"
                   position="absolute"
                   borderBottomLeftRadius="s99"

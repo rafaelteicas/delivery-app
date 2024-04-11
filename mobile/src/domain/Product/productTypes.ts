@@ -8,8 +8,8 @@ export interface ProductType {
   deliveryFee: number;
   timeToDeliverInSeconds?: number;
   description?: string;
-  optionals?: ExtraItemsProps;
-  additional?: ExtraItemsProps;
+  optionals?: ExtraItemsProps[];
+  additional?: ExtraItemsProps[];
 }
 
 export interface ExtraItemsProps {

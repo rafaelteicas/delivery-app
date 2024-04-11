@@ -18,38 +18,53 @@ export const mockedItems: CartItemProps['item'][] = [
     description: 'Any description',
     timeToDeliverInSeconds: 60 * 20,
     category: 'Hamburguer',
-    optionals: {
-      title: 'Opções',
-      isOptional: true,
-      data: [
-        {
-          id: 1,
-          item: 'Bacon',
-          value: 1,
-        },
-        {
-          id: 2,
-          item: 'Carne',
-          value: 1,
-        },
-      ],
-    },
-    additional: {
-      title: 'Adicionais',
-      isOptional: true,
-      data: [
-        {
-          id: 1,
-          item: 'Queijo',
-          value: 1,
-        },
-        {
-          id: 2,
-          item: 'Mussarela',
-          value: 1,
-        },
-      ],
-    },
+    optionals: [
+      {
+        title: 'Opções',
+        isOptional: true,
+        data: [
+          {
+            id: 1,
+            item: 'Bacon',
+            value: 1,
+          },
+          {
+            id: 2,
+            item: 'Carne',
+            value: 1,
+          },
+        ],
+      },
+    ],
+    additional: [
+      {
+        title: 'Adicionais',
+        isOptional: true,
+        data: [
+          {
+            id: 1,
+            item: 'Queijo',
+            value: 1,
+          },
+          {
+            id: 2,
+            item: 'Mussarela',
+            value: 1,
+          },
+        ],
+      },
+      {
+        title: 'Borda',
+        isOptional: false,
+        data: [
+          {
+            id: 1,
+            item: 'Queijo',
+            value: 10,
+          },
+        ],
+      },
+    ],
   },
   {
     id: 2,
