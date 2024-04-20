@@ -1,5 +1,7 @@
 import React from 'react';
-import {Box, Text} from '..';
+
+import {Box} from '../Box/Box';
+import {Text} from '../Text/Text';
 
 interface Props {
   label: string;

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {PressableBox} from '..';
 import {
   GoogleIcon,
   HomeIcon,
@@ -12,9 +11,12 @@ import {
   CartIcon,
   UserIcon,
   ArrowLeftIcon,
-} from '../../assets';
-import {useAppTheme} from '../../hooks';
-import {ThemeColors, ThemeSpacing} from '../../theme';
+} from '@assets';
+
+import {useAppTheme} from '@hooks';
+import {ThemeColors, ThemeSpacing} from '@theme';
+
+import {PressableBox} from '../Box/Box';
 
 export type IconNames = keyof typeof iconRegistry;
 

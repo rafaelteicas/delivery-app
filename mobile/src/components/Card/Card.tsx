@@ -4,11 +4,12 @@ import {ImageBackground, ListRenderItemInfo, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useFavoritesService} from '@services';
 
-import {Box, BoxProps, Icon, PressableBox, Text, TouchableOpacityBox} from '..';
-import {ItemProps} from '../../data/mockedItemData';
 import {SCREEN_HEIGHT, SCREEN_WIDTH} from '../../utils';
+import {Box, BoxProps, PressableBox, TouchableOpacityBox} from '../Box/Box';
+import {Icon} from '../Icon/Icon';
+import {Text} from '../Text/Text';
 
-export function Card({item}: ListRenderItemInfo<ItemProps>) {
+export function Card({item}: ListRenderItemInfo<any>) {
   const {addFavorite} = useFavoritesService();
 
   const {navigate} = useNavigation();

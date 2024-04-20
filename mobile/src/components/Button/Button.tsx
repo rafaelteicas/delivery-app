@@ -1,10 +1,11 @@
 import React from 'react';
+
 import {
   TouchableOpacityBox,
-  Text,
   TouchableOpacityBoxProps,
   BoxProps,
-} from '..';
+} from '../Box/Box';
+import {Text} from '../Text/Text';
 
 interface ButtonProps extends TouchableOpacityBoxProps {
   title: string;

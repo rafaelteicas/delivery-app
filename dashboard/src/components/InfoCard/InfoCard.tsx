@@ -1,5 +1,5 @@
 import React from 'react'
-import { Heading } from '../Heading/Heading'
+import { Heading } from '../Text/Text'
 
 interface InfoCardProps {
   title: string

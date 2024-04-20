@@ -1,7 +1,8 @@
 import React from 'react';
 
-import {Box, BoxProps} from '..';
-import {useAppSafeArea, useAppTheme} from '../../hooks';
+import {useAppSafeArea, useAppTheme} from '@hooks';
+
+import {Box, BoxProps} from '../Box/Box';
 
 import {ScrollViewContainer, ViewContainer} from './components/ScreenContainer';
 import {ScreenHeader} from './components/ScreenHeader';

@@ -1,7 +1,9 @@
 import React from 'react';
-import {Box, BoxProps, Icon, Text} from '../..';
+
 import {useNavigation} from '@react-navigation/native';
-import {useAppSafeArea} from '../../../hooks';
+
+import {Box, BoxProps, Icon, Text} from '@components';
+import {useAppSafeArea} from '@hooks';
 
 interface Props {
   title: string;

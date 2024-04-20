@@ -1,7 +1,7 @@
 import React, {forwardRef} from 'react';
 import {StyleSheet, TextInput, TextInputProps} from 'react-native';
 
-import {Box, BoxProps} from '..';
+import {Box, BoxProps} from '../Box/Box';
 
 interface InputProps extends TextInputProps {
   placeholder: string;
