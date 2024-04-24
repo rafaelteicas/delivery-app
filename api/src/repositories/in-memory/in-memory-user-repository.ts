@@ -12,6 +12,7 @@ export class InMemoryUserRepository implements UserRepository {
     const user: User = {
       id: randomUUID(),
       email: data.email,
+      role: 'USER',
       fullName: data.fullName,
       password: hashedPassword,
       createdAt: new Date(),
@@ -24,6 +25,14 @@ export class InMemoryUserRepository implements UserRepository {
 
   async findByEmail(email: string): Promise<User | null> {
     const user = this.users.find((user) => user.email === email)
+    if (!user) {
+      return null
+    }
+    return user
+  }
+
+  async findById(query: string) {
+    const user = this.users.find((user) => user.id === query)
     if (!user) {
       return null
     }

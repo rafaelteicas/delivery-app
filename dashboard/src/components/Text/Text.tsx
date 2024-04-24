@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 interface Props {
   children: React.ReactNode
@@ -8,16 +8,16 @@ interface Props {
 }
 
 export function Heading({
-  children,
-  size = 'xl',
-  className = '',
-  as: Element = 'h2',
+	children,
+	size = 'xl',
+	className = '',
+	as: Element = 'h2',
 }: Props) {
-  const textSize = `text-${size}`
+	const textSize = `text-${size}`;
 
-  return (
-    <Element className={`font-medium ${textSize} ${className}`}>
-      {children}
-    </Element>
-  )
+	return (
+		<Element className={`font-medium ${textSize} ${className}`}>
+			{children}
+		</Element>
+	);
 }

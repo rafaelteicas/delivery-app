@@ -5,6 +5,7 @@ export function createEnvSchema() {
     NODE_ENV: z.enum(['dev', 'production', 'test']).default('dev'),
     PORT: z.coerce.number().default(3000),
     DATABASE_URL: z.string(),
+    JWT_SECRET: z.string(),
   })
   const _env = envSchema.safeParse(process.env)
 

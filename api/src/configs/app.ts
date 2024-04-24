@@ -1,9 +1,19 @@
 import fastify from 'fastify'
-import { userRoutes } from '@/routes/user'
+import { userRoutes } from '@/http/routes/user'
 import { env } from './env'
-import { serverError } from '@/controllers/errors'
+import fastifyJwt from '@fastify/jwt'
+import cors from '@fastify/cors'
 
 export const app = fastify()
+
+app.register(cors, {
+  origin: true,
+  credentials: true,
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+})
 
 app.register(userRoutes, {
   prefix: '/user',
@@ -13,6 +23,7 @@ app.setErrorHandler((error, _, reply) => {
   if (env.NODE_ENV !== 'production') {
     console.error(error)
   }
-  const _serverError = serverError()
-  return reply.status(_serverError.status).send(_serverError.body)
+  return reply.status(500).send({
+    message: 'Internal Server Error',
+  })
 })

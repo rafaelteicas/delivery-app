@@ -15,7 +15,6 @@ import {theme} from './theme/theme';
 export function App() {
   const [location, setLocation] = useState<LocationObjectCoords | null>(null);
 
-  console.log(location);
 
   async function requestPermissions() {
     const {status} = await requestForegroundPermissionsAsync();
