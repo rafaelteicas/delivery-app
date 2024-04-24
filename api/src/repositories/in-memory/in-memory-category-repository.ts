@@ -16,4 +16,9 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     this.items.push(createdCategory)
     return createdCategory
   }
+
+  async getAllCategories() {
+    const items = this.items
+    return items
+  }
 }
