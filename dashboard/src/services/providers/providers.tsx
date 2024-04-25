@@ -1,5 +1,6 @@
 'use client';
 
+import * as Dialog from '@radix-ui/react-dialog';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React, { useState } from 'react';
 
@@ -18,7 +19,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<AuthProvider>
-				{children}
+				<Dialog.Root>
+					{children}
+				</Dialog.Root>
 			</AuthProvider>
 		</QueryClientProvider>
 	);

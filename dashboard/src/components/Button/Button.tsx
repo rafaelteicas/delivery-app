@@ -3,7 +3,7 @@ import React from 'react';
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
 interface Props extends ButtonProps {
-  title: string
+	title: string
 }
 
 export function Button({ title, ...buttonProps }: Props) {
