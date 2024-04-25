@@ -2,6 +2,7 @@ import fastify from 'fastify'
 import { userRoutes } from '@/http/routes/user'
 import { env } from './env'
 import fastifyJwt from '@fastify/jwt'
+import fastifyCookie from '@fastify/cookie'
 import cors from '@fastify/cors'
 import { categoriesRoutes } from '@/http/routes/category'
 
@@ -12,8 +13,17 @@ app.register(cors, {
   credentials: true,
 })
 
+app.register(fastifyCookie)
+
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+  sign: {
+    expiresIn: env.JWT_EXPIRES_IN,
+  },
 })
 
 app.register(userRoutes, {

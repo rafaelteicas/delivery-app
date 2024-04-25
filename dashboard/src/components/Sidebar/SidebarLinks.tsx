@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
+import { cn } from '@/utils';
+
 interface SidebarLinksProps {
   title: string
   path: string
@@ -20,9 +22,9 @@ export function SidebarLinks({ title, path, icon: Icon }: SidebarLinksProps) {
 	return (
 		<Link
 			href={`/dashboard/${path}`}
-			className={`relative px-4 py-2 font-medium flex-row flex items-center gap-4 hover:bg-zinc-200 ${selectedStyle}`}
+			className={cn('relative px-4 py-2 font-base flex-row flex items-center gap-4 hover:bg-zinc-200', selectedStyle)}
 		>
-			<Icon className="text-orange-500 w-5 h-5" />
+			<Icon className="text-orange-500 w-4 h-4" />
 			{title}
 		</Link>
 	);

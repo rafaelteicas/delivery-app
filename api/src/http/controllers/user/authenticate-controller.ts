@@ -1,6 +1,7 @@
 import { makeAuthentication } from '@/factories/user/make-authenticate'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { authenticateSchema } from './schemas/authenticate-schema'
+import { env } from '@/configs/env'
 
 export async function authenticateController(
   request: FastifyRequest,
@@ -19,9 +20,25 @@ export async function authenticateController(
       },
     )
 
-    reply.status(200).send({
-      token,
-    })
+    const refreshToken = await reply.jwtSign(
+      {},
+      {
+        sub: user.id,
+        expiresIn: env.JWT_REFRESH_EXPIRES_IN,
+      },
+    )
+
+    reply
+      .setCookie('refreshToken', refreshToken, {
+        path: '/',
+        secure: true,
+        sameSite: true,
+        httpOnly: true,
+      })
+      .status(200)
+      .send({
+        token,
+      })
   } catch (error) {
     console.error(error)
   }
