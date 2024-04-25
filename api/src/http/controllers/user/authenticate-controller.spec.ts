@@ -2,7 +2,7 @@ import { app } from '@/configs/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import request from 'supertest'
 
-describe('Authenticate Route', () => {
+describe('Authenticate Controller', () => {
   beforeAll(async () => await app.ready())
   afterAll(async () => await app.close())
   it('should be able to authenticate with correct credentials', async () => {

@@ -3,13 +3,13 @@
 
 #### RFs
 
-- [ ] Deve ser possível listar todas as categorias
-- [ ] Deve ser possível criar uma categoria
-- [ ] Deve ser possível excluir ou desativar uma categoria pelo id
+- [x] Deve ser possível listar todas as categorias
+- [x] Deve ser possível criar uma categoria
+- [x] Deve ser possível excluir uma categoria pelo id
 
 #### RNFs
 
-- [ ] As categorias devem ser paginadas
+- [x] As categorias devem ser paginadas
 
 ## Users
 

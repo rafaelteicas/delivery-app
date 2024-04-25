@@ -1,8 +1,8 @@
-import { makeAuthentication } from '@/factories/make-authenticate'
+import { makeAuthentication } from '@/factories/user/make-authenticate'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { authenticateSchema } from './schemas/authenticate-schema'
 
-export async function authenticateRoute(
+export async function authenticateController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {

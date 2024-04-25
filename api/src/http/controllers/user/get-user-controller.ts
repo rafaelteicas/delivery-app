@@ -1,8 +1,8 @@
-import { makeGetUser } from '@/factories/make-get-user'
+import { makeGetUser } from '@/factories/user/make-get-user'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { getUserSchema } from './schemas/get-user-schema'
 
-export async function getUserRoute(
+export async function getUserController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {

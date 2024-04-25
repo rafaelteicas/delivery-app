@@ -12,16 +12,19 @@ describe('Get All Categories Use Case', () => {
   })
 
   it('should return all categories', async () => {
-    categoryRepository.create({
-      name: 'Category 1',
-    })
-    categoryRepository.create({
-      name: 'Category 2',
-    })
-    const categories = await sut.execute()
+    for (let i = 1; i <= 20; i++) {
+      await categoryRepository.create({
+        name: `Category ${i}`,
+      })
+    }
 
-    expect(categories).toHaveLength(2)
-    expect(categories).toEqual(
+    const { data, metadata } = await sut.execute({
+      page: 2,
+      perPage: 19,
+    })
+
+    expect(data).toHaveLength(1)
+    expect(data).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           name: expect.any(String),
@@ -29,5 +32,10 @@ describe('Get All Categories Use Case', () => {
         }),
       ]),
     )
+    expect(metadata).toEqual({
+      page: 2,
+      perPage: 19,
+      total: 20,
+    })
   })
 })

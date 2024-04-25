@@ -3,6 +3,7 @@ import { userRoutes } from '@/http/routes/user'
 import { env } from './env'
 import fastifyJwt from '@fastify/jwt'
 import cors from '@fastify/cors'
+import { categoriesRoutes } from '@/http/routes/category'
 
 export const app = fastify()
 
@@ -17,6 +18,10 @@ app.register(fastifyJwt, {
 
 app.register(userRoutes, {
   prefix: '/user',
+})
+
+app.register(categoriesRoutes, {
+  prefix: '/category',
 })
 
 app.setErrorHandler((error, _, reply) => {

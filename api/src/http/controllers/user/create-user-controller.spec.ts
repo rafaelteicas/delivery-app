@@ -2,7 +2,7 @@ import { app } from '@/configs/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import request from 'supertest'
 
-describe('Create User Route', () => {
+describe('Create User Controller', () => {
   beforeAll(async () => await app.ready())
   afterAll(async () => await app.close())
   it('should be able to create a user when correct data is provided', async () => {

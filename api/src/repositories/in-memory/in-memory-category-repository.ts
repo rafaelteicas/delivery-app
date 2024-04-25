@@ -17,8 +17,28 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     return createdCategory
   }
 
-  async getAllCategories() {
+  async getAllCategories({ page = 1, perPage = 10 }) {
     const items = this.items
-    return items
+    const data = items.slice((page - 1) * perPage, page * perPage)
+
+    return {
+      data,
+      metadata: {
+        page,
+        perPage,
+        total: items.length,
+      },
+    }
+  }
+
+  async remove(categoryId: string) {
+    const category = this.items.find((category) => category.id === categoryId)
+
+    if (!category) {
+      return null
+    }
+
+    const items = this.items.filter((item) => item.id !== categoryId)
+    this.items = items
   }
 }
