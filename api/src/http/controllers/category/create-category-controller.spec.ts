@@ -7,9 +7,9 @@ describe('Create Category', () => {
   afterAll(async () => await app.close())
 
   it('should create a new category', async () => {
-    const req = await request(app.server).post('/category').send({
+    const response = await request(app.server).post('/category').send({
       name: 'New Category',
     })
-    expect(req.status).toEqual(201)
+    expect(response.status).toEqual(201)
   })
 })

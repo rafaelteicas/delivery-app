@@ -18,11 +18,11 @@ describe('Get User Controller', () => {
       password: '12345678',
     })
 
-    const req = await request(app.server)
+    const response = await request(app.server)
       .get('/user')
       .set('Authorization', `Bearer ${createdUser.body.token}`)
 
-    expect(req.body).toEqual(
+    expect(response.body).toEqual(
       expect.objectContaining({
         email: expect.any(String),
       }),

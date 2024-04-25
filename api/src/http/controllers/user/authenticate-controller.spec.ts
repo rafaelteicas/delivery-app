@@ -13,16 +13,16 @@ describe('Authenticate Controller', () => {
       confirmPassword: '12345678',
     })
 
-    const req = await request(app.server).post('/user/auth').send({
+    const response = await request(app.server).post('/user/auth').send({
       email: 'john@example.com',
       password: '12345678',
     })
 
-    expect(req.body).toEqual(
+    expect(response.body).toEqual(
       expect.objectContaining({
         token: expect.any(String),
       }),
     )
-    expect(req.status).toBe(200)
+    expect(response.status).toBe(200)
   })
 })

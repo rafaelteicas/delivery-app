@@ -5,4 +5,6 @@ async function authenticate(data: AuthenticateRequestDataType) {
 	return authApi.authenticate(data);
 }
 
-export const authService = { authenticate };
+export const authService = {
+	authenticate
+};
