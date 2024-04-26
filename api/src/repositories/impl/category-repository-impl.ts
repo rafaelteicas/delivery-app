@@ -17,6 +17,9 @@ export class CategoryRepositoryImpl implements CategoryRepository {
 
   async getAllCategories({ page = 1, perPage = 10 }: CategoryParams) {
     const categories = await prisma.category.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
       skip: (page - 1) * perPage,
       take: perPage,
     })

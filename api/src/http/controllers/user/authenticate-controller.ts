@@ -14,7 +14,9 @@ export async function authenticateController(
     const user = await authenticateUseCase.execute(schema)
 
     const token = await reply.jwtSign(
-      {},
+      {
+        role: user.role,
+      },
       {
         sub: user.id,
       },

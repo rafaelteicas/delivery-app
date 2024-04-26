@@ -7,13 +7,21 @@ export async function createCategoryController(
   reply: FastifyReply,
 ) {
   try {
+    await request.jwtVerify()
+    console.log(request.user)
+
     const { name } = createCategorySchema(request.body)
     const createCategoryUseCase = makeCreateCategory()
-    const category = await createCategoryUseCase.execute({
-      name,
-    })
-    return reply.status(201).send({
-      category,
+    if (request.user.role === 'ADMIN') {
+      const category = await createCategoryUseCase.execute({
+        name,
+      })
+      return reply.status(201).send({
+        category,
+      })
+    }
+    return reply.status(401).send({
+      message: 'Unauthorized',
     })
   } catch (err) {
     console.log(err)

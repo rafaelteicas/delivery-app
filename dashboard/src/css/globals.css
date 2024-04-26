@@ -5,3 +5,7 @@
 p {
   @apply text-sm text-gray-500
 }
+
+label {
+  @apply text-sm text-gray-500
+}

@@ -10,7 +10,9 @@ export async function refreshController(
   })
 
   const token = await reply.jwtSign(
-    {},
+    {
+      role: request.user.role,
+    },
     {
       sub: request.user.sub,
     },
