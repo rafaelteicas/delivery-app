@@ -17,6 +17,6 @@ export async function getAllCategoriesController(
 
     return reply.status(200).send({ categories })
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
