@@ -27,7 +27,9 @@ export async function createCategoryController(
     const imagePath = randomUUID() + image.filename
     const buffer = Buffer.from(image._buf)
     if (!image.mimetype.startsWith('image/')) {
-      throw new Error()
+      return reply.status(415).send({
+        message: 'Unsupported Media Type',
+      })
     }
     const category = await createCategoryUseCase.execute({
       name,
