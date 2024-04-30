@@ -43,5 +43,6 @@ export async function authenticateController(
       })
   } catch (error) {
     console.error(error)
+    throw error
   }
 }
