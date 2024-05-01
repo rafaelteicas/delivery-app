@@ -13,6 +13,8 @@ async function getAll({ page, perPage }: GetAllCategoriesRequestParams): Promise
 			perPage
 		}
 	});
+	console.log(response.data);
+	
 	return response.data;
 }
  

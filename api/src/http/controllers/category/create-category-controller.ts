@@ -8,7 +8,7 @@ import { MultipartFile } from '@fastify/multipart'
 
 export type CategoryControllerRequestBodyType = {
   body: MultipartFile & {
-    value: { name: string }
+    value: string
   }
   image: MultipartFile & {
     _buf: string
@@ -24,7 +24,7 @@ export async function createCategoryController(
     const createCategoryUseCase = makeCreateCategory()
     const { body, image } = request.body as CategoryControllerRequestBodyType
     const { name } = createCategorySchema(body.value)
-    const imagePath = randomUUID() + image.filename
+    const imagePath = (randomUUID() + image.filename).trim()
     const buffer = Buffer.from(image._buf)
     if (!image.mimetype.startsWith('image/')) {
       return reply.status(415).send({
@@ -35,6 +35,7 @@ export async function createCategoryController(
       name,
       imagePath: `/public/${imagePath}`,
     })
+
     if (image.mimetype !== 'image/test') {
       fs.createWriteStream(
         path.join(__dirname, '../../../../public', imagePath),

@@ -12,7 +12,7 @@ export function useCreateCategory() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({
 				queryKey: [Keys.GET_CATEGORIES_KEY],
-			});
+			});			
 		}
 	});
   

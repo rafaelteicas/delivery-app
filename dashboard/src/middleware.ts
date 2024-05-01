@@ -12,6 +12,8 @@ export async function middleware(request: NextRequest) {
 		throw new Error('Missing API_URL');
 	}
 	
+	
+	
 	if (token) {
 		try {
     	const response = await fetch(`${apiUrl}/user`, {
@@ -23,10 +25,12 @@ export async function middleware(request: NextRequest) {
 		
 			const data = await response.json();
 
-			if ( data.role === 'ADMIN') {
+			if (data.role === 'ADMIN') {
 				return NextResponse.redirect(new URL('/dashboard/home', request.url));
 			}
 		} catch (err) {
+			console.log(err);
+			
 			return NextResponse.redirect(new URL('/auth', request.url));
 		}
 	}

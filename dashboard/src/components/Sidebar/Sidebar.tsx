@@ -8,10 +8,10 @@ import { SidebarLinks } from './SidebarLinks';
 export function Sidebar() {
 	return (
 		<nav className="flex flex-col min-h-full bg-zinc-100 border-r">
-			<SidebarLinks path="/home" title="Home" icon={Home} />
-			<SidebarLinks path="/categories" title="Categorias" icon={Layers3} />
-			<SidebarLinks path="/products" title="Produtos" icon={ShoppingCart} />
-			<SidebarLinks path="/clients" title="Clientes" icon={Users} />
+			<SidebarLinks path="home" title="Home" icon={Home} />
+			<SidebarLinks path="categories" title="Categorias" icon={Layers3} />
+			<SidebarLinks path="products" title="Produtos" icon={ShoppingCart} />
+			<SidebarLinks path="clients" title="Clientes" icon={Users} />
 		</nav>
 	);
 }

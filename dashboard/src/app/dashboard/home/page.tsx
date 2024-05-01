@@ -4,7 +4,6 @@ import { Heading } from '@/components';
 import { InfoCard } from '@/components/InfoCard/InfoCard';
 
 export default function Dashboard() {
-
 	return (
 		<section>
 			<Heading as="h1" size="2xl" className="mb-4">

@@ -6,9 +6,11 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import React, { FormEvent, useState } from 'react';
 
+import { api } from '@/api';
 import { Badge, Button, Heading, Input, Modal } from '@/components';
-import { useCreateCategory } from '@/domain/Category/useCase/useCreateCategory';
 import { useGetAllCategories } from '@/domain/Category/useCase/useGetAllCategories';
+import { env } from '@/infra';
+
 export default function Categories() {
 	const [categoryName, setCategoryName] = useState('');
 	const [image, setImage] = useState<File | null>(null);
@@ -17,17 +19,24 @@ export default function Categories() {
 	const pageParam = params.get('page');
 	const perPageParam = params.get('perPage');
 	const page = pageParam ? parseInt(pageParam) : 1;
-	const perPage = perPageParam ? parseInt(perPageParam) : 10;
+	const perPage = perPageParam ? parseInt(perPageParam) : 10;	
 
-	const { create } = useCreateCategory();
+	// const { create } = useCreateCategory();
 	const { categories } = useGetAllCategories({
 		page,
 		perPage
 	});
-
-	function handleSendCategory(e: FormEvent) {
+	
+	async function handleSendCategory(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		create(categoryName);
+		const formData = new FormData();
+		if(!image) {
+			return null;
+		}
+		formData.append('image', image);
+		formData.append('body', JSON.stringify({ name: categoryName }));
+		await api.postForm('/category', formData);
+		// create(categoryName);
 	}
 
 	return (
@@ -52,12 +61,20 @@ export default function Categories() {
 				<tbody>
 					{categories?.data.map(category => (
 						<tr className="border bg-white" key={category.name}>
-							<td className="p-4 border-r"></td>
+							<td className="p-4 border-r">
+								<Image 
+									src={`${env.API_URL}${category.image}`}
+									width={100}
+									height={100}
+									alt='Imagem de categoria'
+									className='w-16 h-16'
+								/>
+							</td>
 							<td className="p-4 border-r">{category.name}</td>
 							<td className="p-4 border-r">
 								<Badge title={category.status ? 'Ativo' : 'Desativado'}  type={category.status ? 'success' : 'error'} />
 							</td>
-							<td className="p-4 flex gap-4 items-center">
+							<td className="p-4 gap-2">
 								<Pencil size={20} />
 								<Trash size={20} className='text-rose-500' />
 							</td>
@@ -84,8 +101,8 @@ export default function Categories() {
 						</label>
 						<input id="actual-btn" type='file' accept="image/*" onChange={e => setImage(e.target.files![0])} className='hidden' style={{ color: 'transparent' }} />
 					</div>
+					<Button title='Enviar' type='submit' className='w-full mt-4' />
 				</form>
-				<Button title='Enviar' type='submit' className='w-full mt-4' />
 			</Modal>
 		</section>
 	);

@@ -6,6 +6,7 @@ export type GetAllCategoriesRequestParams = {
 type CategoryDataType = {
   name: string
   status: boolean
+  image: string
   createdAt: Date
   updatedAt: Date
 }
