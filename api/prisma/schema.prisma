@@ -28,12 +28,28 @@ model User {
 }
 
 model Category {
-  id        String   @id @unique @default(uuid())
-  name      String   @unique
-  status    Boolean  @default(true)
+  id        String    @id @unique @default(uuid())
+  name      String    @unique
+  status    Boolean   @default(true)
   image     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
+  Product   Product[]
+
+  @@map("categories")
+}
+
+model Product {
+  id    String   @id @unique @default(uuid())
+  name  String
+  image String[]
+  value Decimal
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  @@map("categories")
+  @@map("products")
 }

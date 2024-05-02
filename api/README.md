@@ -1,4 +1,3 @@
-
 ## Categories
 
 #### RFs
@@ -10,6 +9,20 @@
 #### RNFs
 
 - [x] As categorias devem ser paginadas
+- [ ] Somente administradores podem editar/excluir as categorias
+
+## Produtos
+
+#### RFs
+
+- [ ] Deve ser possível cadastrar um produto
+- [ ] Deve ser possível remover um produto pelo id
+- [ ] Deve ser possível editar um produto
+
+#### RNFs
+
+- [ ] Os produtos devem ser paginados
+- [ ] Somente administradores podem editar/excluir os produtos
 
 ## Users
 
@@ -21,9 +34,9 @@
 
 #### RNFs
 
-- [x] O *password* e o *confirmPassword* devem ser iguais
-- [x] O *password* deve ser registrado no banco de dados com hash
+- [x] O _password_ e o _confirmPassword_ devem ser iguais
+- [x] O _password_ deve ser registrado no banco de dados com hash
 - [x] Não deve ser possível criar emails duplicados
-- [x] Se o usuário se autenticar com sucesso, deve receber um *token* JWT para se identificar
-- [x] Ao realizar o cadastro o *token* JWT será enviado
-- [ ] Retornar um *refreshToken* e salvar nos cookies
+- [x] Se o usuário se autenticar com sucesso, deve receber um _token_ JWT para se identificar
+- [x] Ao realizar o cadastro o _token_ JWT será enviado
+- [ ] Retornar um _refreshToken_ e salvar nos cookies

@@ -15,6 +15,7 @@ type CategoryResponse = {
 }
 
 export interface CategoryRepository {
+  findById: (categoryId: string) => Promise<Category | null>
   create: (category: Prisma.CategoryCreateInput) => Promise<Category>
   getAllCategories: ({
     page,

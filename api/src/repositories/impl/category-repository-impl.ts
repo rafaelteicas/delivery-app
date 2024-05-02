@@ -41,4 +41,16 @@ export class CategoryRepositoryImpl implements CategoryRepository {
       },
     })
   }
+
+  async findById(categoryId: string) {
+    const category = await prisma.category.findUnique({
+      where: {
+        id: categoryId,
+      },
+    })
+    if (!category) {
+      return null
+    }
+    return category
+  }
 }

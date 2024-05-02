@@ -42,4 +42,12 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     const items = this.items.filter((item) => item.id !== categoryId)
     this.items = items
   }
+
+  async findById(categoryId: string) {
+    const item = this.items.find((item) => item.id === categoryId)
+    if (!item) {
+      return null
+    }
+    return item
+  }
 }
