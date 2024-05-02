@@ -2,7 +2,7 @@ import { CategoryRepository } from '@/repositories/category-respository'
 import { UseCase } from '../use-case'
 
 type CreateCategoryUseCaseRequest = {
-  name: string
+  value: string
   imagePath?: string
 }
 
@@ -17,11 +17,11 @@ type CreateCategoryUseCaseResponse = {
 export class CreateCategoryUseCase implements UseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}
   async execute({
-    name,
+    value,
     imagePath,
   }: CreateCategoryUseCaseRequest): Promise<CreateCategoryUseCaseResponse> {
     const createdCategory = await this.categoryRepository.create({
-      name,
+      name: value,
       image: imagePath,
     })
     if (!createdCategory) {

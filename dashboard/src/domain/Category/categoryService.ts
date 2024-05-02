@@ -1,11 +1,11 @@
 import { categoryApi } from './categoryApi';
 import { GetAllCategoriesRequestParams } from './categoryType';
 
-export async function create(name: string) {
-	await categoryApi.create(name);
+async function create(data: FormData) {
+	await categoryApi.create(data);
 }
 
-export async function getAll({ page , perPage }: GetAllCategoriesRequestParams) {
+async function getAll({ page , perPage }: GetAllCategoriesRequestParams) {
 	const { categories } = await categoryApi.getAll({
 		page,
 		perPage
@@ -13,7 +13,12 @@ export async function getAll({ page , perPage }: GetAllCategoriesRequestParams) 
 	return categories;
 }
 
+async function remove(categoryId: string) {
+	await categoryApi.remove(categoryId);
+}
+
 export const categoryService = {
 	create,
-	getAll
+	getAll,
+	remove
 };

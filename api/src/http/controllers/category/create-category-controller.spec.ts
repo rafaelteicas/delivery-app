@@ -15,9 +15,7 @@ describe('Create Category', () => {
 
     const requestBody = {
       body: {
-        value: {
-          name: 'New Category',
-        },
+        value: 'New Category',
       },
       image: {
         _buf: '',

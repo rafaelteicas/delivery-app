@@ -6,9 +6,9 @@ import { categoryService } from '../categoryService';
 
 export function useCreateCategory() {
 	const queryClient = useQueryClient();
-	const { mutate, isPending, isError } = useMutation<void, Error, { name: string }>({
+	const { mutate, isPending, isError } = useMutation<void, Error, { data: FormData }>({
 		mutationKey: [Keys.CREATE_CATEGORY_KEY],
-		mutationFn: variables => categoryService.create(variables.name),
+		mutationFn: ({data}) => categoryService.create(data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
 				queryKey: [Keys.GET_CATEGORIES_KEY],
@@ -17,7 +17,7 @@ export function useCreateCategory() {
 	});
   
 	return {
-		create: (name: string) => mutate({ name }),
+		create: (data: FormData) => mutate({ data }),
 		isPending,
 		isError
 	};

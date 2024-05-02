@@ -13,8 +13,9 @@ describe('Create Category Use Case', () => {
 
   it('should be able to create a category using a name', async () => {
     const createdCategory = await sut.execute({
-      name: 'New Category',
+      value: 'New Category',
     })
+
     expect(createdCategory).toEqual(
       expect.objectContaining({
         name: expect.any(String),

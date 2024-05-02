@@ -20,32 +20,36 @@ export async function createCategoryController(
   reply: FastifyReply,
 ) {
   await request.jwtVerify()
-  if (request.user.role === 'ADMIN') {
-    const createCategoryUseCase = makeCreateCategory()
-    const { body, image } = request.body as CategoryControllerRequestBodyType
-    const { name } = createCategorySchema(body.value)
-    const imagePath = (randomUUID() + image.filename).trim()
-    const buffer = Buffer.from(image._buf)
-    if (!image.mimetype.startsWith('image/')) {
-      return reply.status(415).send({
-        message: 'Unsupported Media Type',
+  try {
+    if (request.user.role === 'ADMIN') {
+      const createCategoryUseCase = makeCreateCategory()
+      const { body, image } = request.body as CategoryControllerRequestBodyType
+      const { value } = createCategorySchema(body)
+      const imagePath = (randomUUID() + image.filename).trim()
+      const buffer = Buffer.from(image._buf)
+      if (!image.mimetype.startsWith('image/')) {
+        return reply.status(415).send({
+          message: 'Unsupported Media Type',
+        })
+      }
+      const category = await createCategoryUseCase.execute({
+        value,
+        imagePath: `/public/${imagePath}`,
+      })
+
+      if (image.mimetype !== 'image/test') {
+        fs.createWriteStream(
+          path.join(__dirname, '../../../../public', imagePath),
+        ).write(buffer)
+      }
+      return reply.status(201).send({
+        category,
       })
     }
-    const category = await createCategoryUseCase.execute({
-      name,
-      imagePath: `/public/${imagePath}`,
+    return reply.status(401).send({
+      message: 'Unauthorized',
     })
-
-    if (image.mimetype !== 'image/test') {
-      fs.createWriteStream(
-        path.join(__dirname, '../../../../public', imagePath),
-      ).write(buffer)
-    }
-    return reply.status(201).send({
-      category,
-    })
+  } catch (error) {
+    console.log(error)
   }
-  return reply.status(401).send({
-    message: 'Unauthorized',
-  })
 }

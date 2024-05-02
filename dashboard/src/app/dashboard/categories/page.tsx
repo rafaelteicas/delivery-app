@@ -6,9 +6,8 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import React, { FormEvent, useState } from 'react';
 
-import { api } from '@/api';
 import { Badge, Button, Heading, Input, Modal } from '@/components';
-import { useGetAllCategories } from '@/domain/Category/useCase/useGetAllCategories';
+import { useCreateCategory, useGetAllCategories, useRemoveCategory } from '@/domain';
 import { env } from '@/infra';
 
 export default function Categories() {
@@ -21,7 +20,11 @@ export default function Categories() {
 	const page = pageParam ? parseInt(pageParam) : 1;
 	const perPage = perPageParam ? parseInt(perPageParam) : 10;	
 
-	// const { create } = useCreateCategory();
+	const { remove } = useRemoveCategory();
+	function handleRemoveCategory(categoryId: string) {
+		remove(categoryId);
+	}
+	const { create } = useCreateCategory();
 	const { categories } = useGetAllCategories({
 		page,
 		perPage
@@ -34,9 +37,8 @@ export default function Categories() {
 			return null;
 		}
 		formData.append('image', image);
-		formData.append('body', JSON.stringify({ name: categoryName }));
-		await api.postForm('/category', formData);
-		// create(categoryName);
+		formData.append('body', categoryName);
+		create(formData);
 	}
 
 	return (
@@ -76,7 +78,7 @@ export default function Categories() {
 							</td>
 							<td className="p-4 gap-2">
 								<Pencil size={20} />
-								<Trash size={20} className='text-rose-500' />
+								<Trash size={20} className='text-rose-500' onClick={() => handleRemoveCategory(category.id)} />
 							</td>
 						</tr>
 					))}

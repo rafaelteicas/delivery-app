@@ -2,8 +2,8 @@ import { api } from '@/api';
 
 import { CategoryResponseDataType, GetAllCategoriesRequestParams } from './categoryType';
 
-export async function create(name: string) {
-	await api.post('/category', { name });
+export async function create(data: FormData) {
+	await api.postForm('/category', data);
 }
 
 async function getAll({ page, perPage }: GetAllCategoriesRequestParams): Promise<CategoryResponseDataType> {
@@ -13,12 +13,16 @@ async function getAll({ page, perPage }: GetAllCategoriesRequestParams): Promise
 			perPage
 		}
 	});
-	console.log(response.data);
 	
 	return response.data;
+}
+
+async function remove(categoryId: string) {
+	await api.delete(`/category/${categoryId}`);
 }
  
 export const categoryApi = {
 	create,
-	getAll
+	getAll,
+	remove
 };

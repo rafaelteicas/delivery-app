@@ -4,6 +4,7 @@ export type GetAllCategoriesRequestParams = {
 }
 
 type CategoryDataType = {
+  id: string
   name: string
   status: boolean
   image: string
