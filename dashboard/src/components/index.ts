@@ -5,4 +5,5 @@ export * from './InfoCard/InfoCard';
 export * from './Input/Input';
 export * from './Modal/Modal';
 export * from './Sidebar/Sidebar';
+export * from './Table/Table';
 export * from './Text/Text';
