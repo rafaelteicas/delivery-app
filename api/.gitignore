@@ -2,5 +2,7 @@ node_modules
 dist
 ./db
 coverage
-.env*
 public/
+.env
+.env.test
+.DS_Store

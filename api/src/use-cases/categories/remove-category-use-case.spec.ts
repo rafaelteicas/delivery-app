@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { RemoveCategoryUseCase } from './remove-category-use-case'
-import { InMemoryCategoryRepository } from '@/repositories/in-memory/in-memory-category-repository'
-import { NotFoundError } from '@/errors'
+import { InMemoryCategoryRepository } from '@/test/repositories/in-memory-category-repository'
+import { NotFoundError } from '@/core/errors/not-found-error'
 
 let categoryRepository: InMemoryCategoryRepository
 let sut: RemoveCategoryUseCase
@@ -17,13 +17,12 @@ describe('Remove Category Use Case', () => {
       name: 'Category',
     })
 
-    await sut.execute(createdCategory.id)
-    expect(categoryRepository.items).toEqual([])
+    const result = await sut.execute({ categoryId: createdCategory.id })
+    expect(result.value).toEqual({})
   })
 
   it('should throws if category not found', async () => {
-    await expect(() => sut.execute('invalid id')).rejects.toBeInstanceOf(
-      NotFoundError,
-    )
+    const result = await sut.execute({ categoryId: 'invalid id' })
+    await expect(result.value).toBeInstanceOf(NotFoundError)
   })
 })

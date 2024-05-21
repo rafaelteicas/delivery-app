@@ -1,32 +1,34 @@
-import { CategoryRepository } from '@/repositories/category-respository'
-import { UseCase } from '../use-case'
+import { Either, right } from '@/core/protocols/either'
+import { CategoryRepository } from '@/repositories/category-repository'
 
 type CreateCategoryUseCaseRequest = {
   value: string
   imagePath?: string
 }
 
-type CreateCategoryUseCaseResponse = {
-  id: string
-  name: string
-  status: boolean
-  createdAt: Date
-  updatedAt: Date
-}
+type CreateCategoryUseCaseResponse = Either<
+  null,
+  {
+    category: {
+      id: string
+      name: string
+      status: boolean
+      createdAt: Date
+      updatedAt: Date
+    }
+  }
+>
 
-export class CreateCategoryUseCase implements UseCase {
+export class CreateCategoryUseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}
   async execute({
     value,
     imagePath,
   }: CreateCategoryUseCaseRequest): Promise<CreateCategoryUseCaseResponse> {
-    const createdCategory = await this.categoryRepository.create({
+    const category = await this.categoryRepository.create({
       name: value,
       image: imagePath,
     })
-    if (!createdCategory) {
-      throw new Error()
-    }
-    return createdCategory
+    return right({ category })
   }
 }

@@ -1,3 +1,4 @@
+import { Page } from '@/core/entities/page'
 import { Category, Prisma } from '@prisma/client'
 
 type CategoryParams = {
@@ -6,12 +7,7 @@ type CategoryParams = {
 }
 
 type CategoryResponse = {
-  data: Category[]
-  metadata: {
-    page: number
-    perPage: number
-    total: number
-  }
+  categoryList: Page<Category[]>
 }
 
 export interface CategoryRepository {
@@ -21,5 +17,5 @@ export interface CategoryRepository {
     page,
     perPage,
   }: CategoryParams) => Promise<CategoryResponse>
-  remove: (categoryId: string) => Promise<void | null>
+  remove: (category: Category) => Promise<void>
 }

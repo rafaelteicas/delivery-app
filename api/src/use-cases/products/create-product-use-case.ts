@@ -1,5 +1,6 @@
+import { Either, right } from '@/core/protocols/either'
 import { ProductRepository } from '@/repositories/product-repository'
-import { UseCase } from '../use-case'
+import { Product } from '@prisma/client'
 
 type CreateProductRequest = {
   name: string
@@ -8,7 +9,14 @@ type CreateProductRequest = {
   productImagePath: string[]
 }
 
-export class CreateProductUseCase implements UseCase {
+type CreateProductResponse = Either<
+  null,
+  {
+    product: Product
+  }
+>
+
+export class CreateProductUseCase {
   constructor(private readonly productRepository: ProductRepository) {}
 
   async execute({
@@ -16,7 +24,7 @@ export class CreateProductUseCase implements UseCase {
     categoryId,
     productImagePath,
     value,
-  }: CreateProductRequest) {
+  }: CreateProductRequest): Promise<CreateProductResponse> {
     const product = await this.productRepository.create({
       name,
       category: {
@@ -28,6 +36,6 @@ export class CreateProductUseCase implements UseCase {
       value,
     })
 
-    return product
+    return right({ product })
   }
 }

@@ -1,7 +1,8 @@
 import { describe, expect, it, beforeEach } from 'vitest'
 import { GetUserByIdUseCase } from './get-user-by-id-use-case'
-import { InMemoryUserRepository } from '@/repositories/in-memory/in-memory-user-repository'
-import { MissingParamsError, NotFoundError } from '@/errors'
+import { InMemoryUserRepository } from '@/test/repositories/in-memory-user-repository'
+import { MissingParamsError } from '@/core/errors/missing-params-error'
+import { NotFoundError } from '@/core/errors/not-found-error'
 
 let userRepository: InMemoryUserRepository
 let sut: GetUserByIdUseCase
@@ -11,24 +12,35 @@ describe('Get User By Id Use Case', () => {
     userRepository = new InMemoryUserRepository()
     sut = new GetUserByIdUseCase(userRepository)
   })
-  it('should throw MissingParamsError if query is not provided', () => {
-    expect(() => sut.execute('')).rejects.toBeInstanceOf(MissingParamsError)
+  it('should throw MissingParamsError if query is not provided', async () => {
+    const result = await sut.execute({
+      userId: '',
+    })
+    expect(result.isLeft).toBeTruthy()
+    expect(result.value).toBeInstanceOf(MissingParamsError)
   })
 
-  it('should throw NotFoundError if user does not exist', () => {
-    expect(() => sut.execute('123456')).rejects.toBeInstanceOf(NotFoundError)
+  it('should throw NotFoundError if user does not exist', async () => {
+    const result = await sut.execute({
+      userId: '123456',
+    })
+    expect(result.value).toBeInstanceOf(NotFoundError)
   })
 
   it('should return user data if correct id is provided', async () => {
-    const createdUser = await userRepository.createUser({
+    const user = await userRepository.createUser({
       email: 'any@mail.com',
       fullName: 'Any Name',
       password: '1234567',
     })
 
-    const user = await sut.execute(createdUser.id)
+    const result = await sut.execute({
+      userId: user.id,
+    })
 
-    expect(user).toMatchObject({
+    expect(result.isRight()).toBeTruthy()
+
+    expect(userRepository.users[0]).toEqual({
       id: expect.any(String),
       email: expect.any(String),
       fullName: expect.any(String),

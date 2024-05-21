@@ -1,6 +1,7 @@
 import { Category, Prisma } from '@prisma/client'
-import { CategoryRepository } from '../category-respository'
 import { randomUUID } from 'crypto'
+import { Page } from '@/core/entities/page'
+import { CategoryRepository } from '@/repositories/category-repository'
 
 export class InMemoryCategoryRepository implements CategoryRepository {
   items: Category[] = []
@@ -18,29 +19,26 @@ export class InMemoryCategoryRepository implements CategoryRepository {
     return createdCategory
   }
 
-  async getAllCategories({ page = 1, perPage = 10 }) {
+  async getAllCategories({
+    page = 1,
+    perPage = 10,
+  }): Promise<{ categoryList: Page<Category[]> }> {
     const items = this.items
     const data = items.slice((page - 1) * perPage, page * perPage)
 
     return {
-      data,
-      metadata: {
-        page,
-        perPage,
-        total: items.length,
+      categoryList: {
+        data,
+        metadata: { page, perPage, total: items.length },
       },
     }
   }
 
-  async remove(categoryId: string) {
-    const category = this.items.find((category) => category.id === categoryId)
-
-    if (!category) {
-      return null
-    }
-
-    const items = this.items.filter((item) => item.id !== categoryId)
-    this.items = items
+  async remove(category: Category) {
+    const categoryIndex = this.items.findIndex(
+      (categoryToDelete) => categoryToDelete.id === category.id,
+    )
+    this.items.splice(categoryIndex, 1)
   }
 
   async findById(categoryId: string) {

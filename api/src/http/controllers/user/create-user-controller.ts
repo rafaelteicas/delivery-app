@@ -2,37 +2,31 @@ import { makeCreateUser } from '@/factories/user/make-create-user'
 
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { createUserSchema } from './schemas/create-user-schema'
-import { UserAlreadyExistsError } from '@/errors'
 
 export async function createUserController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  try {
-    const createUserUseCase = makeCreateUser()
-    const schema = createUserSchema(request.body)
-    const user = await createUserUseCase.execute(schema)
+  const createUserUseCase = makeCreateUser()
+  const schema = createUserSchema(request.body)
+  const result = await createUserUseCase.execute(schema)
 
-    if (!user) {
-      throw new Error()
-    }
-
+  if (result.isRight()) {
     const token = await reply.jwtSign(
       {},
       {
-        sub: user.id,
+        sub: result.value.user.id,
       },
     )
 
     return reply.status(201).send({
       token,
     })
-  } catch (error) {
-    if (error instanceof UserAlreadyExistsError) {
-      return reply.status(409).send({
-        message: error.message,
-      })
-    }
-    throw error
+  }
+
+  if (result.isLeft()) {
+    return reply.status(result.value.statusCode).send({
+      message: result.value.message,
+    })
   }
 }

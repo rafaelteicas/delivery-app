@@ -1,8 +1,9 @@
-import { UserAlreadyExistsError } from '@/errors/user-already-exists-error'
+import { UserAlreadyExistsError } from '@/core/errors/user-already-exists-error'
 import { createUserSchema } from '@/http/controllers/user/schemas/create-user-schema'
 import { hash } from 'bcrypt'
 import { UserRepository } from '@/repositories/user-repository'
-import { UseCase } from '../use-case'
+import { Either, left, right } from '@/core/protocols/either'
+import { User } from '@prisma/client'
 
 const SALT = 6
 
@@ -13,16 +14,25 @@ export type CreateUserUseCaseRequest = {
   confirmPassword: string
 }
 
-export class CreateUserUseCase implements UseCase {
+type CreateUserUseCaseResponse = Either<
+  UserAlreadyExistsError,
+  {
+    user: User
+  }
+>
+
+export class CreateUserUseCase {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(data: CreateUserUseCaseRequest) {
+  async execute(
+    data: CreateUserUseCaseRequest,
+  ): Promise<CreateUserUseCaseResponse> {
     const { email, fullName, password } = createUserSchema(data)
 
     const userEmailAlreadyExists = await this.userRepository.findByEmail(email)
 
     if (userEmailAlreadyExists) {
-      throw new UserAlreadyExistsError()
+      return left(new UserAlreadyExistsError())
     }
 
     const hashedPassword = await hash(password, SALT)
@@ -33,6 +43,6 @@ export class CreateUserUseCase implements UseCase {
       password: hashedPassword,
     })
 
-    return user
+    return right({ user })
   }
 }

@@ -1,21 +1,36 @@
+import { MissingParamsError } from '@/core/errors/missing-params-error'
+import { NotFoundError } from '@/core/errors/not-found-error'
+import { Either, left, right } from '@/core/protocols/either'
 import { UserRepository } from '@/repositories/user-repository'
-import { UseCase } from '../use-case'
-import { MissingParamsError, NotFoundError } from '@/errors'
+import { User } from '@prisma/client'
 
-export class GetUserByIdUseCase implements UseCase {
+type GetUserByIdUseCaseRequest = {
+  userId: string
+}
+
+type GetUserByIdUseCaseResponse = Either<
+  MissingParamsError | NotFoundError,
+  { user: User }
+>
+
+export class GetUserByIdUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(userId: string) {
+  async execute({
+    userId,
+  }: GetUserByIdUseCaseRequest): Promise<GetUserByIdUseCaseResponse> {
     if (!userId) {
-      throw new MissingParamsError()
+      return left(new MissingParamsError())
     }
 
     const user = await this.userRepository.findById(userId)
 
     if (!user) {
-      throw new NotFoundError()
+      return left(new NotFoundError())
     }
 
-    return user
+    return right({
+      user,
+    })
   }
 }

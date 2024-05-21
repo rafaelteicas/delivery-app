@@ -1,16 +1,25 @@
-import { CategoryRepository } from '@/repositories/category-respository'
-import { UseCase } from '../use-case'
-import { NotFoundError } from '@/errors'
+import { NotFoundError } from '@/core/errors/not-found-error'
+import { Either, left, right } from '@/core/protocols/either'
+import { CategoryRepository } from '@/repositories/category-repository'
 
-export class RemoveCategoryUseCase implements UseCase {
+type RemoveCategoryUseCaseRequest = {
+  categoryId: string
+}
+
+type RemoveCategoryUseCaseResponse = Either<NotFoundError, object>
+export class RemoveCategoryUseCase {
   constructor(private readonly categoryRepository: CategoryRepository) {}
-  async execute(categoryId: string) {
-    const removeCategory = await this.categoryRepository.remove(categoryId)
+  async execute({
+    categoryId,
+  }: RemoveCategoryUseCaseRequest): Promise<RemoveCategoryUseCaseResponse> {
+    const category = await this.categoryRepository.findById(categoryId)
 
-    if (removeCategory === null) {
-      throw new NotFoundError()
+    if (!category) {
+      return left(new NotFoundError())
     }
 
-    return removeCategory
+    await this.categoryRepository.remove(category)
+
+    return right({})
   }
 }

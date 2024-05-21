@@ -1,6 +1,5 @@
-import { describe, it, beforeEach, expect } from 'vitest'
-import { InMemoryUserRepository } from '@/repositories/in-memory/in-memory-user-repository'
-import { NotFoundError } from '@/errors/not-found-error'
+import { InMemoryUserRepository } from '@/test/repositories/in-memory-user-repository'
+import { NotFoundError } from '@/core/errors/not-found-error'
 import { AuthenticateUseCase } from './authenticate-use-case'
 
 let usersRepository: InMemoryUserRepository
@@ -13,12 +12,12 @@ describe('Authenticate Controller', () => {
   })
 
   it('should throws not found exception if user does not exist', async () => {
-    await expect(() =>
-      sut.execute({
-        email: 'john2@example.com',
-        password: '123456',
-      }),
-    ).rejects.toBeInstanceOf(NotFoundError)
+    const result = await sut.execute({
+      email: 'john2@example.com',
+      password: '123456',
+    })
+    expect(result.isLeft()).toBeTruthy()
+    expect(result.value).toBeInstanceOf(NotFoundError)
   })
 
   it('should throws not found if exception password does not match', async () => {
@@ -28,12 +27,13 @@ describe('Authenticate Controller', () => {
       password: '123456',
     })
 
-    await expect(() =>
-      sut.execute({
-        email: 'john@example.com',
-        password: '1234567',
-      }),
-    ).rejects.toThrow(NotFoundError)
+    const result = await sut.execute({
+      email: 'john@example.com',
+      password: '1234567',
+    })
+
+    expect(result.isLeft()).toBeTruthy()
+    expect(result.value).toBeInstanceOf(NotFoundError)
   })
 
   it('should return user if correct data is provided', async () => {
@@ -43,16 +43,17 @@ describe('Authenticate Controller', () => {
       password: '123456',
     })
 
-    const user = await sut.execute({
+    const result = await sut.execute({
       email: 'john@example.com',
       password: '123456',
     })
 
-    expect(user).toEqual(
+    expect(result.isRight()).toBeTruthy()
+
+    expect(usersRepository.users[0]).toEqual(
       expect.objectContaining({
-        id: expect.any(String),
-        email: expect.any(String),
-        fullName: expect.any(String),
+        email: 'john@example.com',
+        fullName: 'John Doe',
         password: expect.any(String),
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date),

@@ -1,5 +1,5 @@
-import { Prisma } from '@prisma/client'
-import { CategoryRepository } from '../category-respository'
+import { Category, Prisma } from '@prisma/client'
+import { CategoryRepository } from '../category-repository'
 import { prisma } from '@/libs/db/prisma'
 
 type CategoryParams = {
@@ -16,7 +16,7 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   }
 
   async getAllCategories({ page = 1, perPage = 10 }: CategoryParams) {
-    const categories = await prisma.category.findMany({
+    const data = await prisma.category.findMany({
       orderBy: {
         createdAt: 'desc',
       },
@@ -25,19 +25,21 @@ export class CategoryRepositoryImpl implements CategoryRepository {
     })
 
     return {
-      data: categories,
-      metadata: {
-        page,
-        perPage,
-        total: categories.length,
+      categoryList: {
+        data,
+        metadata: {
+          page,
+          perPage,
+          total: await prisma.category.count(),
+        },
       },
     }
   }
 
-  async remove(categoryId: string) {
+  async remove(category: Category) {
     await prisma.category.delete({
       where: {
-        id: categoryId,
+        id: category.id,
       },
     })
   }

@@ -1,6 +1,5 @@
-import { beforeEach, describe, expect, it } from 'vitest'
 import { GetAllCategoriesUseCase } from './get-all-categories-use-case'
-import { InMemoryCategoryRepository } from '@/repositories/in-memory/in-memory-category-repository'
+import { InMemoryCategoryRepository } from '@/test/repositories/in-memory-category-repository'
 
 let categoryRepository: InMemoryCategoryRepository
 let sut: GetAllCategoriesUseCase
@@ -18,13 +17,13 @@ describe('Get All Categories Use Case', () => {
       })
     }
 
-    const { data, metadata } = await sut.execute({
+    const result = await sut.execute({
       page: 2,
       perPage: 19,
     })
 
-    expect(data).toHaveLength(1)
-    expect(data).toEqual(
+    expect(result.value?.categoryList.data).toHaveLength(1)
+    expect(result.value?.categoryList.data).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           name: expect.any(String),
@@ -32,7 +31,7 @@ describe('Get All Categories Use Case', () => {
         }),
       ]),
     )
-    expect(metadata).toEqual({
+    expect(result.value?.categoryList.metadata).toEqual({
       page: 2,
       perPage: 19,
       total: 20,
