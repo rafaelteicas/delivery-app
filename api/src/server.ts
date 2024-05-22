@@ -1,5 +1,5 @@
-import { app } from './configs/app'
-import { env } from './configs/env'
+import { app } from './infra/configs/app'
+import { env } from './infra/configs/env'
 
 app
   .listen({

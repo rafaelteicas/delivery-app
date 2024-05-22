@@ -1,5 +1,5 @@
-import { UserRepositoryImpl } from '@/repositories/impl/user-repository-impl'
-import { CreateUserUseCase } from '@/use-cases/user/create-user-use-case'
+import { UserRepositoryImpl } from '@/infra/repositories/user-repository-impl'
+import { CreateUserUseCase } from '@/domain/user/use-cases/create-user-use-case'
 
 export function makeCreateUser() {
   const userRepository = new UserRepositoryImpl()

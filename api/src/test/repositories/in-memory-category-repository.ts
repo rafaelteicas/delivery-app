@@ -1,7 +1,7 @@
 import { Category, Prisma } from '@prisma/client'
 import { randomUUID } from 'crypto'
 import { Page } from '@/core/entities/page'
-import { CategoryRepository } from '@/repositories/category-repository'
+import { CategoryRepository } from '@/domain/categories/repositories/category-repository'
 
 export class InMemoryCategoryRepository implements CategoryRepository {
   items: Category[] = []
