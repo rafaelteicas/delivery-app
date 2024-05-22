@@ -9,10 +9,10 @@ export async function getAllCategoriesController(
   const getAllCategoriesUseCase = makeGetAllCategories()
   const { page, perPage } = getAllCategoriesSchema(request.params)
 
-  const result = await getAllCategoriesUseCase.handle({
+  const categories = await getAllCategoriesUseCase.handle({
     page,
     perPage,
   })
 
-  return reply.status(200).send({ categories: result.value?.categoryList })
+  return reply.status(200).send({ categories })
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD:api/src/infra/http/controllers/user/refresh.ts
 import { env } from '@/infra'
+=======
+import { env } from '@/infra/configs'
+>>>>>>> c61e4a694c663e1d1de21361300f19d16c62c931:api/src/http/controllers/user/refresh.ts
 import { FastifyReply, FastifyRequest } from 'fastify'
 
 export async function refreshController(
