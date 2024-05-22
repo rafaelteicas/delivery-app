@@ -1,4 +1,4 @@
-import { DefaultError } from './error'
+import { DefaultError } from '../protocols'
 
 export class MissingParamsError extends Error implements DefaultError {
   statusCode: number

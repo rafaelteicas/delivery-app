@@ -1,5 +1,5 @@
-import { UserRepositoryImpl } from '@/repositories/impl/user-repository-impl'
-import { AuthenticateUseCase } from '@/use-cases/user/authenticate-use-case'
+import { UserRepositoryImpl } from '@/infra/repositories/user-repository-impl'
+import { AuthenticateUseCase } from '@/domain/user/use-cases/authenticate-use-case'
 
 export function makeAuthentication() {
   const userRepository = new UserRepositoryImpl()
