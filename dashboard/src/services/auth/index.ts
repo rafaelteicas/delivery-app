@@ -1,2 +1,2 @@
-export * from './AuthProvider';
-export * from './useAuthCredentials';
+export * from './AuthProvider'
+export * from './useAuthCredentials'

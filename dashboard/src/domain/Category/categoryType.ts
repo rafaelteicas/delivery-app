@@ -1,5 +1,5 @@
 export type GetAllCategoriesRequestParams = {
-  page?: number,
+  page?: number
   perPage?: number
 }
 
@@ -13,7 +13,7 @@ type CategoryDataType = {
 }
 
 export type CategoryResponseDataType = {
-  categories: { 
+  categories: {
     data: CategoryDataType[]
     metadata: {
       page: number

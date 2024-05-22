@@ -1,5 +1,5 @@
-import React from 'react';
+import React from 'react'
 
 export default function Clientes() {
-	return <div>Clientes</div>;
+  return <div>Clientes</div>
 }

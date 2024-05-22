@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { parseCookies, setCookie } from 'nookies';
-import React, { createContext, useEffect, useState } from 'react';
+import { parseCookies, setCookie } from 'nookies'
+import React, { createContext, useEffect, useState } from 'react'
 
-import { api } from '@/api';
+import { api } from '@/api'
 
 type AuthData = {
   token: string
@@ -15,43 +15,43 @@ type AuthType = {
   saveAuth(data: AuthData): void
 }
 
-export const AuthContext = createContext({} as AuthType);
+export const AuthContext = createContext({} as AuthType)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-	const [auth, setAuth] = useState<AuthData | null>(null);
+  const [auth, setAuth] = useState<AuthData | null>(null)
 
-	async function startAuth() {
-		const {token} = parseCookies();
-		
-		if (token) {
-			api.defaults.headers.common.Authorization = `Bearer ${token}`;
-			saveAuth({ token });
-		}
-	}
+  async function startAuth() {
+    const { token } = parseCookies()
 
-	async function saveAuth({ token }: AuthData) {
-		setAuth({ token });
-		if (token) {
-			setCookie(null, 'token', token, {
-				maxAge: 30 * 24 * 60 * 60,
-				path: '/',
-			});
-			api.defaults.headers.common.Authorization = `Bearer ${token}`;
-		}
-	}
+    if (token) {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
+      saveAuth({ token })
+    }
+  }
 
-	useEffect(() => {
-		startAuth();
-	}, []);
+  async function saveAuth({ token }: AuthData) {
+    setAuth({ token })
+    if (token) {
+      setCookie(null, 'token', token, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: '/',
+      })
+      api.defaults.headers.common.Authorization = `Bearer ${token}`
+    }
+  }
 
-	return (
-		<AuthContext.Provider
-			value={{
-				auth,
-				saveAuth,
-			}}
-		>
-			{children}
-		</AuthContext.Provider>
-	);
+  useEffect(() => {
+    startAuth()
+  }, [])
+
+  return (
+    <AuthContext.Provider
+      value={{
+        auth,
+        saveAuth,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
 }

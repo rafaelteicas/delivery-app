@@ -1,16 +1,16 @@
-import { api } from '@/api';
+import { api } from '@/api'
 
 import {
-	AuthenticateRequestDataType,
-	AuthenticateResponseDataType,
-} from './authTypes';
+  AuthenticateRequestDataType,
+  AuthenticateResponseDataType,
+} from './authTypes'
 
 async function authenticate(
-	data: AuthenticateRequestDataType,
+  data: AuthenticateRequestDataType,
 ): Promise<AuthenticateResponseDataType> {
-	const response = await api.post('/user/auth', data);
+  const response = await api.post('/user/auth', data)
 
-	return response.data;
+  return response.data
 }
 
-export const authApi = { authenticate };
+export const authApi = { authenticate }

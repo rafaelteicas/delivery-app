@@ -6,17 +6,13 @@ export async function getAllCategoriesController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  try {
-    const getAllCategoriesUseCase = makeGetAllCategories()
-    const { page, perPage } = getAllCategoriesSchema(request.params)
+  const getAllCategoriesUseCase = makeGetAllCategories()
+  const { page, perPage } = getAllCategoriesSchema(request.params)
 
-    const categories = await getAllCategoriesUseCase.handle({
-      page,
-      perPage,
-    })
+  const result = await getAllCategoriesUseCase.handle({
+    page,
+    perPage,
+  })
 
-    return reply.status(200).send({ categories })
-  } catch (error) {
-    console.error(error)
-  }
+  return reply.status(200).send({ categories: result.value?.categoryList })
 }
