@@ -1,5 +1,5 @@
 {
-  "name": "Delivery",
+  "name": "@delivery-app/mobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -49,8 +49,5 @@
     "prettier": "2.8.8",
     "react-test-renderer": "18.2.0",
     "typescript": "5.0.4"
-  },
-  "engines": {
-    "node": ">=18"
   }
 }
