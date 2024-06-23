@@ -10,3 +10,10 @@ services:
       - POSTGRES_DB=${DATABASE_NAME}
     ports:
       - 5432:5432
+  api:
+    container_name: delivery_api
+    image: node:20-alpine
+    volumes:
+      - .:/home/node/app
+    ports:
+      - 3000:3000
